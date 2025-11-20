@@ -1,19 +1,20 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AIF娛樂集團 - 下一代娛樂生態系統</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Orbitron:wght@700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>HKAIFM - Complete Demo</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@700;800&family=Noto+Sans+TC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #2563eb;
-            --primary-dark: #1d4ed8;
-            --secondary: #7c3aed;
-            --accent: #06d6a0;
-            --dark-bg: #0f0f0f;
-            --card-bg: rgba(15, 23, 42, 0.8);
+            --primary: #3498db;
+            --secondary: #8e44ad;
+            --accent: #00ff9d;
+            --gold: #ffd700;
+            --danger: #e74c3c;
+            --success: #00b894;
         }
         
         * {
@@ -21,2197 +22,1515 @@
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
-            font-family: 'Inter', 'Microsoft JhengHei', sans-serif;
-            background: var(--dark-bg);
+            font-family: 'Inter', 'Noto Sans TC', sans-serif;
+            background-color: #0a0a0a;
             color: #ffffff;
-            overflow: hidden;
+            overflow-x: hidden;
             background-image: 
-                radial-gradient(circle at 20% 50%, rgba(37, 99, 235, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(124, 58, 237, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 40% 80%, rgba(6, 214, 160, 0.05) 0%, transparent 50%);
-            background-attachment: fixed;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
+                radial-gradient(circle at 10% 20%, rgba(52, 152, 219, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(142, 68, 173, 0.1) 0%, transparent 20%);
         }
-        
-        .ppt-container {
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-            width: 100vw;
-            position: relative;
-        }
-        
-        /* Header with logo */
-        .ppt-header {
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(15, 15, 15, 0.95);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(6, 214, 160, 0.1);
-            z-index: 100;
-        }
-        
-        .logo-container {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-        
-        .logo-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 12px;
-            background: linear-gradient(135deg, var(--primary), var(--accent), var(--secondary));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: white;
-        }
-        
-        .logo-text {
+
+        .logo-font {
             font-family: 'Orbitron', sans-serif;
-            font-weight: 900;
-            font-size: 1.8rem;
-            letter-spacing: 1px;
-            background: linear-gradient(135deg, var(--primary), var(--accent), var(--secondary));
+            font-weight: 800;
+            font-size: 2rem;
+            letter-spacing: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent), var(--secondary));
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            text-shadow: 0 0 30px rgba(6, 214, 160, 0.3);
+            animation: logoGlow 3s ease-in-out infinite alternate;
         }
-        
-        .slide-indicator {
+
+        @keyframes logoGlow {
+            0% { text-shadow: 0 0 10px rgba(0, 255, 157, 0.3); }
+            100% { text-shadow: 0 0 25px rgba(0, 255, 157, 0.6); }
+        }
+
+        .logo-sub {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 0.6rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-top: -8px;
+            opacity: 0.8;
+        }
+
+        .lang-switcher {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 10001;
+            background: rgba(26, 32, 44, 0.95);
+            border: 2px solid var(--accent);
+            border-radius: 12px;
+            padding: 0.75rem 1.5rem;
+            backdrop-filter: blur(20px);
+            cursor: pointer;
+            transition: all 0.3s ease;
             display: flex;
+            align-items: center;
             gap: 0.5rem;
         }
-        
-        .indicator-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.2);
-            transition: all 0.3s ease;
-            cursor: pointer;
+
+        .lang-switcher:hover {
+            background: rgba(0, 255, 157, 0.2);
+            transform: scale(1.05);
         }
-        
-        .indicator-dot.active {
-            background: var(--accent);
-            transform: scale(1.2);
+
+        .demo-control-panel {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(26, 32, 44, 0.95);
+            border: 2px solid var(--accent);
+            border-radius: 16px;
+            padding: 1.5rem;
+            z-index: 10000;
+            backdrop-filter: blur(20px);
+            min-width: 300px;
+            max-height: 85vh;
+            overflow-y: auto;
         }
-        
-        /* Slides container */
-        .slides-container {
-            flex: 1;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .slide {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 2rem;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
-            pointer-events: none;
-        }
-        
-        .slide.active {
-            opacity: 1;
-            transform: translateY(0);
-            pointer-events: all;
-        }
-        
-        .slide-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-        
-        .slide-title {
-            font-size: 2.8rem;
-            font-weight: 800;
-            margin-bottom: 1.5rem;
-            position: relative;
-            background: linear-gradient(135deg, var(--primary), var(--accent), var(--secondary));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-        
-        .slide-subtitle {
-            font-size: 1.4rem;
-            color: rgba(255, 255, 255, 0.8);
-            margin-bottom: 3rem;
-            max-width: 800px;
-        }
-        
-        .slide-body {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            width: 100%;
-        }
-        
-        /* Card styles */
-        .card {
-            background: var(--card-bg);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 2rem;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, var(--primary), var(--accent), var(--secondary));
-            opacity: 0.5;
-        }
-        
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(6, 214, 160, 0.2);
-        }
-        
-        .card-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            color: var(--accent);
-        }
-        
-        .card-content {
-            color: rgba(255, 255, 255, 0.8);
-            line-height: 1.6;
+
+        .control-title {
             font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
-        
-        .card-content ul {
-            padding-left: 1.5rem;
-            margin-top: 1rem;
+
+        .control-item {
+            margin-bottom: 0.7rem;
+            padding: 0.7rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+            font-size: 0.85rem;
         }
-        
-        .card-content li {
-            margin-bottom: 0.8rem;
+
+        .control-item:hover {
+            background: rgba(0, 255, 157, 0.1);
+            border-color: var(--accent);
         }
-        
-        /* Footer navigation */
-        .ppt-footer {
+
+        .control-item.active {
+            background: rgba(0, 255, 157, 0.2);
+            border-color: var(--accent);
+            box-shadow: 0 0 15px rgba(0, 255, 157, 0.3);
+        }
+
+        .control-item.completed {
+            background: rgba(52, 152, 219, 0.2);
+            border-color: var(--primary);
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: var(--accent);
+            color: #000;
+            text-align: center;
+            line-height: 26px;
+            font-weight: 700;
+            margin-right: 8px;
+            font-size: 0.8rem;
+        }
+
+        .control-item.completed .step-number {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        .demo-screen {
+            width: 100%;
+            min-height: 100vh;
+            padding: 2rem;
+            padding-right: 340px;
+            padding-left: 140px;
+        }
+
+        .demo-page {
+            display: none;
+        }
+
+        .demo-page.active {
+            display: block;
+            animation: pageSlideIn 0.6s ease-out;
+        }
+
+        @keyframes pageSlideIn {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .navbar {
+            background-color: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 255, 157, 0.1);
             padding: 1rem 2rem;
+            margin-bottom: 2rem;
+            border-radius: 12px;
+        }
+
+        .nav-content {
+            max-width: 100%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(15, 15, 15, 0.95);
-            backdrop-filter: blur(20px);
-            border-top: 1px solid rgba(6, 214, 160, 0.1);
-            z-index: 100;
         }
-        
-        .nav-btn {
-            background: rgba(255, 255, 255, 0.1);
-            border: none;
-            color: white;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 1.2rem;
+
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
         }
-        
-        .nav-btn:hover {
-            background: var(--accent);
-            transform: scale(1.1);
-        }
-        
-        .slide-number {
-            font-size: 1.1rem;
-            color: rgba(255, 255, 255, 0.7);
-        }
-        
-        /* Special slide styles */
-        .full-center {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-        }
-        
-        .eco-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1.5rem;
-        }
-        
-        .eco-item {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            padding: 1.5rem;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-        
-        .eco-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(6, 214, 160, 0.2);
-        }
-        
-        .eco-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-        
-        .eco-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-        
-        /* Horizontal timeline */
-        .horizontal-timeline {
-            display: flex;
-            overflow-x: auto;
-            padding: 2rem 0;
-            gap: 1.5rem;
-            scrollbar-width: thin;
-            scrollbar-color: var(--accent) rgba(255,255,255,0.1);
-        }
-        
-        .horizontal-timeline::-webkit-scrollbar {
-            height: 8px;
-        }
-        
-        .horizontal-timeline::-webkit-scrollbar-track {
-            background: rgba(255,255,255,0.1);
-            border-radius: 4px;
-        }
-        
-        .horizontal-timeline::-webkit-scrollbar-thumb {
-            background-color: var(--accent);
-            border-radius: 4px;
-        }
-        
-        .timeline-item {
-            min-width: 300px;
-            background: var(--card-bg);
-            border-radius: 15px;
-            padding: 1.5rem;
-            position: relative;
-            flex-shrink: 0;
-        }
-        
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            top: -15px;
-            left: 20px;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            background: var(--accent);
-            border: 3px solid var(--dark-bg);
-            box-shadow: 0 0 15px rgba(6, 214, 160, 0.5);
-            z-index: 2;
-        }
-        
-        .timeline-date {
-            color: var(--accent);
-            font-weight: 700;
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-        }
-        
-        .stat-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-            margin: 2rem 0;
-        }
-        
-        .stat-item {
-            text-align: center;
-            padding: 1.5rem;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-        }
-        
-        .stat-number {
+
+        .page-title {
             font-size: 2.5rem;
             font-weight: 800;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
+            background: linear-gradient(135deg, #ffffff 0%, var(--accent) 30%, var(--primary) 70%, var(--secondary) 100%);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            margin-bottom: 0.5rem;
+            margin-bottom: 1rem;
+            text-align: center;
         }
-        
-        .stat-label {
-            font-size: 0.9rem;
+
+        .page-subtitle {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.7);
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            padding: 0.9rem 1.8rem;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            font-size: 0.95rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent), var(--primary));
+            color: #000;
+            box-shadow: 0 4px 15px rgba(0, 255, 157, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(0, 255, 157, 0.6);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--accent);
+            border: 2px solid var(--accent);
+        }
+
+        .card {
+            background: rgba(26, 32, 44, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            margin-bottom: 1.5rem;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 255, 157, 0.2);
+            border-color: rgba(0, 255, 157, 0.3);
+        }
+
+        .phase-tracker {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 0.8rem;
+            margin-bottom: 2rem;
+            padding: 1.2rem;
+            background: rgba(26, 32, 44, 0.6);
+            border-radius: 16px;
+        }
+
+        .phase-item {
+            text-align: center;
+            padding: 0.8rem;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+            position: relative;
+            border: 2px solid transparent;
+        }
+
+        .phase-item::after {
+            content: '→';
+            position: absolute;
+            right: -1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 1rem;
+        }
+
+        .phase-item:last-child::after {
+            display: none;
+        }
+
+        .phase-item.active {
+            background: rgba(0, 255, 157, 0.2);
+            border-color: var(--accent);
+            box-shadow: 0 0 20px rgba(0, 255, 157, 0.3);
+        }
+
+        .phase-item.completed {
+            background: rgba(52, 152, 219, 0.2);
+            border-color: var(--primary);
+        }
+
+        .phase-number {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--accent);
+            margin-bottom: 0.4rem;
+        }
+
+        .phase-item.completed .phase-number {
+            color: var(--primary);
+        }
+
+        .phase-name {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 0.2rem;
+        }
+
+        .phase-desc {
+            font-size: 0.65rem;
             color: rgba(255, 255, 255, 0.6);
         }
-        
-        .comparison-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 1.5rem;
+
+        .info-box {
+            background: rgba(52, 152, 219, 0.1);
+            border: 2px solid var(--primary);
+            border-radius: 12px;
+            padding: 1.3rem;
+            margin: 1.5rem 0;
         }
-        
-        .comparison-table th,
-        .comparison-table td {
-            padding: 1rem;
-            text-align: left;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .comparison-table th {
-            background: rgba(6, 214, 160, 0.1);
-            color: var(--accent);
-            font-weight: 600;
-        }
-        
-        .valuation-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-        
-        .valuation-card {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            padding: 1.5rem;
-            text-align: center;
-        }
-        
-        .valuation-title {
-            font-size: 1.2rem;
-            margin-bottom: 1rem;
-            color: var(--accent);
-        }
-        
-        .team-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-        
-        .team-card {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            padding: 1.5rem;
-            text-align: center;
-        }
-        
-        .team-avatar {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            margin: 0 auto 1rem;
+
+        .info-title {
             display: flex;
             align-items: center;
-            justify-content: center;
-            font-size: 2rem;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 0.8rem;
         }
-        
-        .page-counter {
-            position: absolute;
-            bottom: 20px;
-            right: 20px;
-            background: rgba(0,0,0,0.6);
-            padding: 5px 15px;
-            border-radius: 20px;
+
+        .info-title i {
+            margin-right: 0.5rem;
+        }
+
+        .info-content {
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.7;
             font-size: 0.9rem;
-            z-index: 10;
         }
-        
-        /* New styles for additional slides */
-        .comparison-chart {
+
+        .success-box {
+            background: rgba(0, 184, 148, 0.1);
+            border: 2px solid var(--success);
+            border-radius: 12px;
+            padding: 1.3rem;
+            margin: 1.5rem 0;
+        }
+
+        .success-title {
             display: flex;
-            height: 300px;
-            gap: 20px;
-            align-items: flex-end;
-            justify-content: center;
-            margin: 2rem 0;
+            align-items: center;
+            color: var(--success);
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 0.8rem;
         }
-        
-        .chart-bar {
-            width: 60px;
-            background: linear-gradient(to top, var(--primary), var(--accent));
-            border-radius: 10px 10px 0 0;
-            position: relative;
-            transition: height 1s ease;
-        }
-        
-        .chart-label {
-            position: absolute;
-            bottom: -30px;
-            left: 0;
-            right: 0;
+
+        .data-card {
+            background: rgba(26, 32, 44, 0.8);
+            border: 1px solid rgba(0, 255, 157, 0.3);
+            border-radius: 12px;
+            padding: 1.2rem;
             text-align: center;
+        }
+
+        .data-label {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 0.4rem;
+        }
+
+        .data-value {
+            font-size: 1.7rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .data-unit {
             font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.5);
+            margin-left: 0.3rem;
         }
-        
-        .chart-value {
-            position: absolute;
-            top: -30px;
-            left: 0;
-            right: 0;
-            text-align: center;
-            font-weight: bold;
-            color: var(--accent);
+
+        .highlight-pulse {
+            animation: highlightPulse 2s ease-in-out infinite;
         }
-        
-        .section-title {
-            font-size: 1.5rem;
-            color: var(--accent);
-            margin: 2rem 0 1rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid rgba(6, 214, 160, 0.3);
+
+        @keyframes highlightPulse {
+            0%, 100% {
+                box-shadow: 0 0 0 0 rgba(0, 255, 157, 0.7);
+            }
+            50% {
+                box-shadow: 0 0 0 15px rgba(0, 255, 157, 0);
+            }
         }
-        
-        /* Responsive design */
-        @media (max-width: 768px) {
-            .slide-title {
-                font-size: 2rem;
-            }
-            
-            .slide-subtitle {
-                font-size: 1.2rem;
-            }
-            
-            .eco-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .slide-body {
-                grid-template-columns: 1fr;
-            }
-            
-            .valuation-grid, .team-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .horizontal-timeline {
-                flex-direction: column;
-            }
-            
-            .timeline-item {
-                min-width: 100%;
-            }
-            
-            .comparison-chart {
-                flex-direction: column;
-                height: auto;
-                align-items: center;
-            }
-            
-            .chart-bar {
-                width: 80%;
-                height: 60px !important;
-                border-radius: 0 10px 10px 0;
-            }
-            
-            .chart-label {
+
+        .revenue-card {
+            background: linear-gradient(135deg, rgba(0, 184, 148, 0.2), rgba(0, 255, 157, 0.1));
+            border: 2px solid var(--success);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .revenue-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            margin-bottom: 0.8rem;
+        }
+
+        .revenue-label {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .revenue-value {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--success);
+        }
+
+        .price-change {
+            display: inline-block;
+            padding: 0.2rem 0.6rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-left: 0.4rem;
+        }
+
+        .price-up {
+            background: rgba(0, 184, 148, 0.2);
+            color: var(--success);
+        }
+
+        @media (max-width: 1024px) {
+            .demo-control-panel {
                 position: static;
-                margin-top: 5px;
+                margin-bottom: 2rem;
             }
-            
-            .chart-value {
-                position: absolute;
-                top: 50%;
-                right: 10px;
-                transform: translateY(-50%);
+
+            .demo-screen {
+                padding-right: 2rem;
+                padding-left: 2rem;
+            }
+
+            .phase-tracker {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .lang-switcher {
+                position: static;
+                margin-bottom: 1rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .phase-tracker {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .page-title {
+                font-size: 1.8rem;
             }
         }
     </style>
 </head>
 <body>
-    <div class="ppt-container">
-        <!-- Header with logo -->
-        <div class="ppt-header">
-            <div class="logo-container">
-                <div class="logo-icon">AI</div>
-                <div class="logo-text">AI FUTURE</div>
-            </div>
-            <div class="slide-indicator" id="slideIndicator">
-                <!-- Dynamically generated -->
-            </div>
+    <div class="lang-switcher" onclick="toggleLanguage()">
+        <i class="fas fa-language"></i>
+        <span id="lang-text">English</span>
+        <i class="fas fa-chevron-down" style="font-size: 0.8rem;"></i>
+    </div>
+
+    <div class="demo-control-panel">
+        <div class="control-title">
+            <i class="fas fa-play-circle"></i>
+            <span data-en="Demo Control" data-zh="流程演示控制">Demo Control</span>
         </div>
-        
-        <!-- Slides container -->
-        <div class="slides-container" id="slidesContainer">
-            <!-- Slide 1: Cover -->
-            <div class="slide active" id="slide1">
-                <div class="slide-content full-center">
-                    <h1 class="slide-title">重新定義現實，創造無限可能</h1>
-                    <p class="slide-subtitle">全球首個AI原生娛樂生態系統</p>
-                    <div class="stat-grid">
-                        <div class="stat-item">
-                            <div class="stat-number">8</div>
-                            <div class="stat-label">核心平台</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-number">1B+</div>
-                            <div class="stat-label">目標用戶</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-number">$100B</div>
-                            <div class="stat-label">市場價值</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-number">2030</div>
-                            <div class="stat-label">願景實現</div>
-                        </div>
-                    </div>
-                    <p class="slide-subtitle" style="margin-top: 2rem;">顛覆萬億美元娛樂產業</p>
-                </div>
-                <div class="page-counter">1/30</div>
-            </div>
-            
-            <!-- Slide 2: Disruptive Value Proposition -->
-            <div class="slide" id="slide2">
-                <div class="slide-content">
-                    <h1 class="slide-title">顛覆性價值主張</h1>
-                    <p class="slide-subtitle">AI原生娛樂不是升級，而是全新物種</p>
-                    
-                    <div class="slide-body">
-                        <div class="card">
-                            <div class="card-title">創作革命</div>
-                            <div class="card-content">
-                                <p>人人成為世界創造者</p>
-                                <ul>
-                                    <li>AI輔助創作工具</li>
-                                    <li>實時內容生成</li>
-                                    <li>個性化敘事體驗</li>
-                                </ul>
-                            </div>
-                        </div>
-                        
-                        <div class="card">
-                            <div class="card-title">體驗革命</div>
-                            <div class="card-content">
-                                <p>無限個性化沉浸</p>
-                                <ul>
-                                    <li>動態響應環境</li>
-                                    <li>多感官體驗</li>
-                                    <li>跨平台連續性</li>
-                                </ul>
-                            </div>
-                        </div>
-                        
-                        <div class="card">
-                            <div class="card-title">經濟革命</div>
-                            <div class="card-content">
-                                <p>創作者與用戶價值共享</p>
-                                <ul>
-                                    <li>觀看即賺機制</li>
-                                    <li>創作者價值量化</li>
-                                    <li>去中心化市場</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="page-counter">2/30</div>
-            </div>
-            
-            <!-- Slide 3: Market Opportunity -->
-            <div class="slide" id="slide3">
-                <div class="slide-content">
-                    <h1 class="slide-title">市場機會</h1>
-                    
-                    <div class="slide-body">
-                        <div class="card">
-                            <div class="card-title">全球娛樂市場</div>
-                            <div class="card-content">
-                                <div class="stat-number">$2.3T</div>
-                                <p>當前市場規模，年增長率8.5%</p>
-                            </div>
-                        </div>
-                        
-                        <div class="card">
-                            <div class="card-title">AI驅動增長</div>
-                            <div class="card-content">
-                                <div class="stat-number">45%</div>
-                                <p>複合年增長率，遠超傳統娛樂</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="card" style="grid-column: 1 / -1; margin-top: 2rem;">
-                        <div class="card-title">我們的目標</div>
-                        <div class="card-content">
-                            <p>重新定義1萬億美元市場細分</p>
-                            <div class="stat-grid">
-                                <div class="stat-item">
-                                    <div class="stat-number">2030</div>
-                                    <div class="stat-label">目標年份</div>
-                                </div>
-                                <div class="stat-item">
-                                    <div class="stat-number">1B</div>
-                                    <div class="stat-label">用戶數</div>
-                                </div>
-                                <div class="stat-item">
-                                    <div class="stat-number">$100B</div>
-                                    <div class="stat-label">收入</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="page-counter">3/30</div>
-            </div>
-            
-            <!-- Slide 4: Development Roadmap -->
-            <div class="slide" id="slide4">
-                <div class="slide-content">
-                    <h1 class="slide-title">戰略發展路線圖</h1>
-                    <p class="slide-subtitle">三階段實施策略</p>
-                    
-                    <div class="horizontal-timeline">
-                        <div class="timeline-item">
-                            <div class="timeline-date">2025-2027</div>
-                            <div class="card-title">第一階段：基礎建設</div>
-                            <div class="card-content">
-                                <ul>
-                                    <li>推出AI電影學院</li>
-                                    <li>首屆AI國際電影節</li>
-                                    <li>404.world平台MVP</li>
-                                    <li>達到1000萬用戶</li>
-                                    <li>開發核心AI技術棧</li>
-                                    <li>建立香港總部</li>
-                                </ul>
-                            </div>
-                        </div>
-                        
-                        <div class="timeline-item">
-                            <div class="timeline-date">2028-2030</div>
-                            <div class="card-title">第二階段：全球擴張</div>
-                            <div class="card-content">
-                                <ul>
-                                    <li>推出404.GLASS硬件</li>
-                                    <li>開放World404主題公園</li>
-                                    <li>擴展至50+國家</li>
-                                    <li>達到5億用戶</li>
-                                    <li>建立全球合作夥伴</li>
-                                    <li>推出AIF.Exchange平台</li>
-                                </ul>
-                            </div>
-                        </div>
-                        
-                        <div class="timeline-item">
-                            <div class="timeline-date">2031-2035</div>
-                            <div class="card-title">第三階段：生態主導</div>
-                            <div class="card-content">
-                                <ul>
-                                    <li>全面生態整合</li>
-                                    <li>行業標準制定</li>
-                                    <li>全球創意經濟</li>
-                                    <li>10億+活躍用戶</li>
-                                    <li>擴展至教育和企業市場</li>
-                                    <li>開發下一代AI娛樂技術</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="card" style="margin-top: 2rem;">
-                        <div class="card-content">
-                            <div class="stat-grid">
-                                <div class="stat-item">
-                                    <div class="stat-number">$280M</div>
-                                    <div class="stat-label">第一階段投資</div>
-                                </div>
-                                <div class="stat-item">
-                                    <div class="stat-number">$1.2B</div>
-                                    <div class="stat-label">第二階段投資</div>
-                                </div>
-                                <div class="stat-item">
-                                    <div class="stat-number">$5B+</div>
-                                    <div class="stat-label">第三階段投資</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="page-counter">4/30</div>
-            </div>
-            
-            <!-- Slide 5: Eight-Dimensional Ecosystem -->
-            <div class="slide" id="slide5">
-                <div class="slide-content">
-                    <h1 class="slide-title">八維生態系統</h1>
-                    <p class="slide-subtitle">教育 → 內容 → 平台 → 明星 → 交易 → 金融 → 硬件 → 體驗</p>
-                    
-                    <div class="eco-grid">
-                        <div class="eco-item">
-                            <div class="eco-icon"><i class="fas fa-graduation-cap"></i></div>
-                            <div class="eco-title">AI電影學院</div>
-                            <div class="stat-label">人才孵化器</div>
-                        </div>
-                        
-                        <div class="eco-item">
-                            <div class="eco-icon"><i class="fas fa-film"></i></div>
-                            <div class="eco-title">香港AI電影節</div>
-                            <div class="stat-label">內容發現</div>
-                        </div>
-                        
-                        <div class="eco-item">
-                            <div class="eco-icon"><i class="fas fa-globe"></i></div>
-                            <div class="eco-title">404.world平台</div>
-                            <div class="stat-label">無限世界引擎</div>
-                        </div>
-                        
-                        <div class="eco-item">
-                            <div class="eco-icon"><i class="fas fa-star"></i></div>
-                            <div class="eco-title">StarOS平台</div>
-                            <div class="stat-label">數位名人</div>
-                        </div>
-                        
-                        <div class="eco-item">
-                            <div class="eco-icon"><i class="fas fa-exchange-alt"></i></div>
-                            <div class="eco-title">AIF.Exchange</div>
-                            <div class="stat-label">數位資產市場</div>
-                        </div>
-                        
-                        <div class="eco-item">
-                            <div class="eco-icon"><i class="fas fa-credit-card"></i></div>
-                            <div class="eco-title">AIFCARD</div>
-                            <div class="stat-label">創意價值金融</div>
-                        </div>
-                        
-                        <div class="eco-item">
-                            <div class="eco-icon"><i class="fas fa-glasses"></i></div>
-                            <div class="eco-title">404.GLASS</div>
-                            <div class="stat-label">智能硬件</div>
-                        </div>
-                        
-                        <div class="eco-item">
-                            <div class="eco-icon"><i class="fas fa-map"></i></div>
-                            <div class="eco-title">World404公園</div>
-                            <div class="stat-label">實體體驗</div>
-                        </div>
-                    </div>
-                    
-                    <div class="card" style="margin-top: 2rem;">
-                        <div class="card-content">
-                            <p><strong>協同效應：</strong> 每個平台創造獨立價值同時增強其他平台</p>
-                            <p><strong>競爭壁壘：</strong> 八維整合創造無縫生態系統</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="page-counter">5/30</div>
-            </div>
-            
-            <!-- Slide 6: AI Film Academy -->
-            <div class="slide" id="slide6">
-                <div class="slide-content">
-                    <h1 class="slide-title">AI電影學院</h1>
-                    <p class="slide-subtitle">未來創意人才的全球搖籃</p>
-                    
-                    <div class="slide-body">
-                        <div class="card">
-                            <div class="card-title">核心價值</div>
-                            <div class="card-content">
-                                <p>培養下一代創作者</p>
-                                <ul>
-                                    <li>整合AI與創意藝術課程</li>
-                                    <li>行業領先師資</li>
-                                    <li>全球校園網絡</li>
-                                </ul>
-                            </div>
-                        </div>
-                        
-                        <div class="card">
-                            <div class="card-title">項目</div>
-                            <div class="card-content">
-                                <ul>
-                                    <li>4年制AI藝術學士</li>
-                                    <li>專業認證課程</li>
-                                    <li>高管教育</li>
-                                    <li>在線學習平台</li>
-                                </ul>
-                            </div>
-                        </div>
-                        
-                        <div class="card">
-                            <div class="card-title">影響</div>
-                            <div class="card-content">
-                                <div class="stat-grid">
-                                    <div class="stat-item">
-                                        <div class="stat-number">10K+</div>
-                                        <div class="stat-label">年畢業生</div>
-                                    </div>
-                                    <div class="stat-item">
-                                        <div class="stat-number">95%</div>
-                                        <div class="stat-label">就業率</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="page-counter">6/30</div>
-            </div>
-            
-            <!-- Slide 7: Hong Kong AI International Film Festival -->
-            <div class="slide" id="slide7">
-                <div class="slide-content">
-                    <h1 class="slide-title">香港AI國際電影節</h1>
-                    <p class="slide-subtitle">AI原生內容的頂級全球盛事</p>
-                    
-                    <div class="slide-body">
-                        <div class="card">
-                            <div class="card-title">使命</div>
-                            <div class="card-content">
-                                <p>發現、展示和慶祝AI生成內容</p>
-                                <ul>
-                                    <li>香港年度盛事</li>
-                                    <li>全球參與</li>
-                                    <li>行業網絡中心</li>
-                                </ul>
-                            </div>
-                        </div>
-                        
-                        <div class="card">
-                            <div class="card-title">類別</div>
-                            <div class="card-content">
-                                <ul>
-                                    <li>長篇AI電影</li>
-                                    <li>短片與動畫</li>
-                                    <li>沉浸式體驗</li>
-                                    <li>互動敘事</li>
-                                </ul>
-                            </div>
-                        </div>
-                        
-                        <div class="card">
-                            <div class="card-title">經濟影響</div>
-                            <div class="card-content">
-                                <div class="stat-grid">
-                                    <div class="stat-item">
-                                        <div class="stat-number">$150M</div>
-                                        <div class="stat-label">年收入</div>
-                                    </div>
-                                    <div class="stat-item">
-                                        <div class="stat-number">50K+</div>
-                                        <div class="stat-label">年參與者</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="page-counter">7/30</div>
-            </div>
-            
-            <!-- Slide 8: 404.world Platform -->
-            <div class="slide" id="slide8">
-                <div class="slide-content">
-                    <h1 class="slide-title">404.world平台</h1>
-                    <p class="slide-subtitle">無限平行世界創造引擎</p>
-                    
-                    <div class="slide-body">
-                        <div class="card">
-                            <div class="card-title">技術</div>
-                            <div class="card-content">
-                                <ul>
-                                    <li>AI輔助世界構建</li>
-                                    <li>實時渲染</li>
-                                    <li>跨平台兼容</li>
-                                    <li>基於區塊鏈的所有權</li>
-                                </ul>
-                            </div>
-                        </div>
-                        
-                        <div class="card">
-                            <div class="card-title">功能</div>
-                            <div class="card-content">
-                                <ul>
-                                    <li>直觀創作工具</li>
-                                    <li>多用戶協作</li>
-                                    <li>資產市場</li>
-                                    <li>觀看即賺生態</li>
-                                </ul>
-                            </div>
-                        </div>
-                        
-                        <div class="card">
-                            <div class="card-title">增長預測</div>
-                            <div class="card-content">
-                                <div class="stat-grid">
-                                    <div class="stat-item">
-                                        <div class="stat-number">50M</div>
-                                        <div class="stat-label">2027年用戶</div>
-                                    </div>
-                                    <div class="stat-item">
-                                        <div class="stat-number">500M</div>
-                                        <div class="stat-label">2030年用戶</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="page-counter">8/30</div>
-            </div>
-            
-            <!-- Slide 9: StarOS Digital Talent Platform -->
-            <div class="slide" id="slide9">
-                <div class="slide-content">
-                    <h1 class="slide-title">StarOS數位人才平台</h1>
-                    <p class="slide-subtitle">下一代人才代表</p>
-                    
-                    <div class="slide-body">
-                        <div class="card">
-                            <div class="card-title">技術</div>
-                            <div class="card-content">
-                                <ul>
-                                    <li>超現實數位化身</li>
-                                    <li>AI個性建模</li>
-                                    <li>基於區塊鏈的合約</li>
-                                    <li>多平台部署</li>
-                                </ul>
-                            </div>
-                        </div>
-                        
-                        <div class="card">
-                            <div class="card-title">應用</div>
-                            <div class="card-content">
-                                <ul>
-                                    <li>虛擬音樂會與表演</li>
-                                    <li>個性化粉絲互動</li>
-                                    <li>24/7內容創作</li>
-                                    <li>品牌合作</li>
-                                </ul>
-                            </div>
-                        </div>
-                        
-                        <div class="card">
-                            <div class="card-title">市場潛力</div>
-                            <div class="card-content">
-                                <div class="stat-grid">
-                                    <div class="stat-item">
-                                        <div class="stat-number">$5B</div>
-                                        <div class="stat-label">2027年收入</div>
-                                    </div>
-                                    <div class="stat-item">
-                                        <div class="stat-number">$20B</div>
-                                        <div class="stat-label">2030年收入</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="page-counter">9/30</div>
-            </div>
-            
-            <!-- Slide 10: AIF.Exchange -->
-            <div class="slide" id="slide10">
-                <div class="slide-content">
-                    <h1 class="slide-title">AIF.Exchange</h1>
-                    <p class="slide-subtitle">創意經濟數位資產市場</p>
-                    
-                    <div class="slide-body">
-                        <div class="card">
-                            <div class="card-title">技術</div>
-                            <div class="card-content">
-                                <ul>
-                                    <li>自定義區塊鏈基礎設施</li>
-                                    <li>高頻交易引擎</li>
-                                    <li>高級安全協議</li>
-                                    <li>監管合規框架</li>
-                                </ul>
-                            </div>
-                        </div>
-                        
-                        <div class="card">
-                            <div class="card-title">資產類別</div>
-                            <div class="card-content">
-                                <ul>
-                                    <li>內容版權代幣</li>
-                                    <li>創作者個人代幣</li>
-                                    <li>虛擬房地產</li>
-                                    <li>AI模型許可證</li>
-                                </ul>
-                            </div>
-                        </div>
-                        
-                        <div class="card">
-                            <div class="card-title">增長指標</div>
-                            <div class="card-content">
-                                <div class="stat-grid">
-                                    <div class="stat-item">
-                                        <div class="stat-number">$1B</div>
-                                        <div class="stat-label">2027年日交易量</div>
-                                    </div>
-                                    <div class="stat-item">
-                                        <div class="stat-number">$10B</div>
-                                        <div class="stat-label">2030年日交易量</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="page-counter">10/30</div>
-            </div>
-            
-            <!-- Slide 11: AIFCARD -->
-            <div class="slide" id="slide11">
-                <div class="slide-content">
-                    <h1 class="slide-title">AIFCARD</h1>
-                    <p class="slide-subtitle">數位與物理世界的金融橋樑</p>
-                    
-                    <div class="slide-body">
-                        <div class="card">
-                            <div class="card-title">功能</div>
-                            <div class="card-content">
-                                <ul>
-                                    <li>多貨幣支持</li>
-                                    <li>加密貨幣/法幣轉換</li>
-                                    <li>創作者版權分配</li>
-                                    <li>全球支付網絡</li>
-                                </ul>
-                            </div>
-                        </div>
-                        
-                        <div class="card">
-                            <div class="card-title">優勢</div>
-                            <div class="card-content">
-                                <ul>
-                                    <li>即時版權支付</li>
-                                    <li>低交易費</li>
-                                    <li>全球可訪問性</li>
-                                    <li>無縫生態整合</li>
-                                </ul>
-                            </div>
-                        </div>
-                        
-                        <div class="card">
-                            <div class="card-title">採用目標</div>
-                            <div class="card-content">
-                                <div class="stat-grid">
-                                    <div class="stat-item">
-                                        <div class="stat-number">10M</div>
-                                        <div class="stat-label">2027年用戶</div>
-                                    </div>
-                                    <div class="stat-item">
-                                        <div class="stat-number">100M</div>
-                                        <div class="stat-label">2030年用戶</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="page-counter">11/30</div>
-            </div>
-            
-            <!-- Slide 12: 404.GLASS -->
-            <div class="slide" id="slide12">
-                <div class="slide-content">
-                    <h1 class="slide-title">404.GLASS</h1>
-                    <p class="slide-subtitle">下一代混合現實硬件</p>
-                    
-                    <div class="slide-body">
-                        <div class="card">
-                            <div class="card-title">技術</div>
-                            <div class="card-content">
-                                <ul>
-                                    <li>4K micro-OLED顯示屏</li>
-                                    <li>120Hz刷新率</li>
-                                    <li>空間音頻系統</li>
-                                    <li>先進手勢識別</li>
-                                </ul>
-                            </div>
-                        </div>
-                        
-                        <div class="card">
-                            <div class="card-title">功能</div>
-                            <div class="card-content">
-                                <ul>
-                                    <li>無縫AR/VR切換</li>
-                                    <li>8小時電池續航</li>
-                                    <li>輕量化設計（低於150克）</li>
-                                    <li>生物識別認證</li>
-                                </ul>
-                            </div>
-                        </div>
-                        
-                        <div class="card">
-                            <div class="card-title">市場預測</div>
-                            <div class="card-content">
-                                <div class="stat-grid">
-                                    <div class="stat-item">
-                                        <div class="stat-number">5M</div>
-                                        <div class="stat-label">2027年銷量</div>
-                                    </div>
-                                    <div class="stat-item">
-                                        <div class="stat-number">20M</div>
-                                        <div class="stat-label">2030年銷量</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="page-counter">12/30</div>
-            </div>
-            
-            <!-- Slide 13: World404 Park -->
-            <div class="slide" id="slide13">
-                <div class="slide-content">
-                    <h1 class="slide-title">World404公園</h1>
-                    <p class="slide-subtitle">數位世界的物理體現</p>
-                    
-                    <div class="slide-body">
-                        <div class="card">
-                            <div class="card-title">概念</div>
-                            <div class="card-content">
-                                <ul>
-                                    <li>300英畝娛樂綜合體</li>
-                                    <li>無縫物理-數位整合</li>
-                                    <li>動態演化環境</li>
-                                    <li>AI驅動個性化體驗</li>
-                                </ul>
-                            </div>
-                        </div>
-                        
-                        <div class="card">
-                            <div class="card-title">區域</div>
-                            <div class="card-content">
-                                <ul>
-                                    <li>創作者樞紐（教育中心）</li>
-                                    <li>數位邊境（VR體驗）</li>
-                                    <li>明星廣場（名人互動）</li>
-                                    <li>生態穹頂（可持續技術展示）</li>
-                                </ul>
-                            </div>
-                        </div>
-                        
-                        <div class="card">
-                            <div class="card-title">經濟影響</div>
-                            <div class="card-content">
-                                <div class="stat-grid">
-                                    <div class="stat-item">
-                                        <div class="stat-number">5M</div>
-                                        <div class="stat-label">年訪客量</div>
-                                    </div>
-                                    <div class="stat-item">
-                                        <div class="stat-number">$2B</div>
-                                        <div class="stat-label">年收入</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="page-counter">13/30</div>
-            </div>
-            
-            <!-- Slide 14: Financial Model -->
-            <div class="slide" id="slide14">
-                <div class="slide-content">
-                    <h1 class="slide-title">可持續財務模型</h1>
-                    <p class="slide-subtitle">生態系統多元化收入來源</p>
-                    
-                    <div class="slide-body">
-                        <div class="card">
-                            <div class="card-title">收入來源</div>
-                            <div class="card-content">
-                                <ul>
-                                    <li>訂閱服務</li>
-                                    <li>硬件銷售</li>
-                                    <li>內容授權</li>
-                                    <li>交易費用</li>
-                                    <li>廣告</li>
-                                    <li>高級體驗</li>
-                                </ul>
-                            </div>
-                        </div>
-                        
-                        <div class="card">
-                            <div class="card-title">貨幣化策略</div>
-                            <div class="card-content">
-                                <ul>
-                                    <li>平台免費增值模式</li>
-                                    <li>創作者收入分成</li>
-                                    <li>企業解決方案</li>
-                                    <li>跨平台價值轉移</li>
-                                </ul>
-                            </div>
-                        </div>
-                        
-                        <div class="card">
-                            <div class="card-title">財務預測</div>
-                            <div class="card-content">
-                                <div class="stat-grid">
-                                    <div class="stat-item">
-                                        <div class="stat-number">$280M</div>
-                                        <div class="stat-label">2025年收入</div>
-                                    </div>
-                                    <div class="stat-item">
-                                        <div class="stat-number">$1.2B</div>
-                                        <div class="stat-label">2027年收入</div>
-                                    </div>
-                                    <div class="stat-item">
-                                        <div class="stat-number">$10B+</div>
-                                        <div class="stat-label">2030年收入</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="page-counter">14/30</div>
-            </div>
-            
-            <!-- Slide 15: Investment Opportunity -->
-            <div class="slide" id="slide15">
-                <div class="slide-content">
-                    <h1 class="slide-title">投資機會</h1>
-                    <p class="slide-subtitle">參與娛樂業的未來</p>
-                    
-                    <div class="slide-body">
-                        <div class="card">
-                            <div class="card-title">當前輪次</div>
-                            <div class="card-content">
-                                <div class="stat-number">$500M</div>
-                                <p>B輪融資</p>
-                                <ul>
-                                    <li>投前估值：$5B</li>
-                                    <li>最低投資額：$5M</li>
-                                    <li>截止日期：2025年Q4</li>
-                                </ul>
-                            </div>
-                        </div>
-                        
-                        <div class="card">
-                            <div class="card-title">財務預測</div>
-                            <div class="card-content">
-                                <div class="stat-number">35%+</div>
-                                <p>年增長率 (2025-2030)</p>
-                                <ul>
-                                    <li>2025收入：$280M</li>
-                                    <li>2027收入：$1.2B</li>
-                                    <li>2030收入：$10B+</li>
-                                </ul>
-                            </div>
-                        </div>
-                        
-                        <div class="card">
-                            <div class="card-title">ROI預測</div>
-                            <div class="card-content">
-                                <div class="stat-grid">
-                                    <div class="stat-item">
-                                        <div class="stat-number">10x</div>
-                                        <div class="stat-label">保守估計</div>
-                                    </div>
-                                    <div class="stat-item">
-                                        <div class="stat-number">50x</div>
-                                        <div class="stat-label">基本情況</div>
-                                    </div>
-                                    <div class="stat-item">
-                                        <div class="stat-number">100x+</div>
-                                        <div class="stat-label">樂觀估計</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="page-counter">15/30</div>
-            </div>
-            
-            <!-- Slide 16: Why Education as Entry Point -->
-            <div class="slide" id="slide16">
-                <div class="slide-content">
-                    <h1 class="slide-title">為何選擇教育作為切入點</h1>
-                    
-                    <div class="slide-body">
-                        <div class="card">
-                            <div class="card-title">現金流確定性</div>
-                            <div class="card-content">
-                                <p>教育付費意願強，預收費模式風險低</p>
-                            </div>
-                        </div>
-                        
-                        <div class="card">
-                            <div class="card-title">內容生產力</div>
-                            <div class="card-content">
-                                <p>持續培養創作者，為生態提供優質內容</p>
-                            </div>
-                        </div>
-                        
-                        <div class="card">
-                            <div class="card-title">品牌權威性</div>
-                            <div class="card-content">
-                                <p>教育機構建立行業話語權和標準制定能力</p>
-                            </div>
-                        </div>
-                        
-                        <div class="card">
-                            <div class="card-title">人才梯隊</div>
-                            <div class="card-content">
-                                <p>培養自己的生態建設者和未來合作夥伴</p>
-                            </div>
-                        </div>
-                        
-                        <div class="card">
-                            <div class="card-title">口碑效應</div>
-                            <div class="card-content">
-                                <p>學員成功案例帶動整個生態的品牌影響力</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="page-counter">16/30</div>
-            </div>
-            
-            <!-- Slide 17: Education-Driven Ecosystem Strategy -->
-            <div class="slide" id="slide17">
-                <div class="slide-content">
-                    <h1 class="slide-title">教育驅動的生態啟動策略</h1>
-                    
-                    <div class="horizontal-timeline">
-                        <div class="timeline-item">
-                            <div class="timeline-date">第1年</div>
-                            <div class="card-title">啟動階段</div>
-                            <div class="card-content">
-                                <ul>
-                                    <li>AI電影學院開學</li>
-                                    <li>首屆電影節舉辦</li>
-                                    <li>建立基礎設施</li>
-                                    <li>招募核心師資</li>
-                                </ul>
-                            </div>
-                        </div>
-                        
-                        <div class="timeline-item">
-                            <div class="timeline-date">第2年</div>
-                            <div class="card-title">平台建設</div>
-                            <div class="card-content">
-                                <ul>
-                                    <li>404.world平台上線</li>
-                                    <li>學員作品優先展示</li>
-                                    <li>全球校園擴展</li>
-                                    <li>內容庫初步建立</li>
-                                </ul>
-                            </div>
-                        </div>
-                        
-                        <div class="timeline-item">
-                            <div class="timeline-date">第3年</div>
-                            <div class="card-title">明星孵化</div>
-                            <div class="card-content">
-                                <ul>
-                                    <li>StarOS平台上線</li>
-                                    <li>學員新星孵化</li>
-                                    <li>傳統明星合作</li>
-                                    <li>粉絲經濟啟動</li>
-                                </ul>
-                            </div>
-                        </div>
-                        
-                        <div class="timeline-item">
-                            <div class="timeline-date">第4年</div>
-                            <div class="card-title">金融化</div>
-                            <div class="card-content">
-                                <ul>
-                                    <li>AIF.Exchange上線</li>
-                                    <li>學員作品版權代幣化</li>
-                                    <li>創作者經濟生態</li>
-                                    <li>全球支付網絡</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="card" style="margin-top: 2rem;">
-                        <div class="card-content">
-                            <p><strong>風險最低化：</strong> 教育模式成熟，市場需求明確</p>
-                            <p><strong>擴張性強：</strong> 從專業教育擴展到大眾培訓</p>
-                            <p><strong>國際化：</strong> 教育天然具有全球化屬性</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="page-counter">17/30</div>
-            </div>
-            
-            <!-- Slide 18: Unique Advantages of Education Approach -->
-            <div class="slide" id="slide18">
-                <div class="slide-content">
-                    <h1 class="slide-title">教育切入的獨特優勢</h1>
-                    
-                    <div class="slide-body">
-                        <div class="card">
-                            <div class="card-title">低風險</div>
-                            <div class="card-content">
-                                <p>教育模式成熟，市場需求明確</p>
-                            </div>
-                        </div>
-                        
-                        <div class="card">
-                            <div class="card-title">高壁壘</div>
-                            <div class="card-content">
-                                <p>師資和課程體系難以複製</p>
-                            </div>
-                        </div>
-                        
-                        <div class="card">
-                            <div class="card-title">擴張性強</div>
-                            <div class="card-content">
-                                <p>從專業教育擴展到大眾培訓</p>
-                            </div>
-                        </div>
-                        
-                        <div class="card">
-                            <div class="card-title">國際化</div>
-                            <div class="card-content">
-                                <p>教育天然具有全球化屬性</p>
-                            </div>
-                        </div>
-                        
-                        <div class="card">
-                            <div class="card-title">政策友好</div>
-                            <div class="card-content">
-                                <p>各國政府都支持AI教育發展</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="page-counter">18/30</div>
-            </div>
-            
-            <!-- Slide 19: Value Amplification from Education to Ecosystem -->
-            <div class="slide" id="slide19">
-                <div class="slide-content">
-                    <h1 class="slide-title">從教育到生態的價值放大</h1>
-                    
-                    <div class="eco-grid">
-                        <div class="eco-item">
-                            <div class="eco-icon"><i class="fas fa-layer-group"></i></div>
-                            <div class="eco-title">第一層價值</div>
-                            <div class="stat-label">教育直接收入</div>
-                        </div>
-                        
-                        <div class="eco-item">
-                            <div class="eco-icon"><i class="fas fa-copyright"></i></div>
-                            <div class="eco-title">第二層價值</div>
-                            <div class="stat-label">學員創作內容版權</div>
-                        </div>
-                        
-                        <div class="eco-item">
-                            <div class="eco-icon"><i class="fas fa-star"></i></div>
-                            <div class="eco-title">第三層價值</div>
-                            <div class="stat-label">明星孵化經紀價值</div>
-                        </div>
-                        
-                        <div class="eco-item">
-                            <div class="eco-icon"><i class="fas fa-users"></i></div>
-                            <div class="eco-title">第四層價值</div>
-                            <div class="stat-label">生態用戶規模價值</div>
-                        </div>
-                        
-                        <div class="eco-item">
-                            <div class="eco-icon"><i class="fas fa-crown"></i></div>
-                            <div class="eco-title">第五層價值</div>
-                            <div class="stat-label">品牌與標準制定</div>
-                        </div>
-                    </div>
-                    
-                    <div class="card" style="margin-top: 2rem;">
-                        <div class="card-content">
-                            <p><strong>總價值放大效應：</strong> 1+1+1...>10</p>
-                            <p><strong>生態協同：</strong> 各層價值相互增強，形成正向循環</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="page-counter">19/30</div>
-            </div>
-            
-            <!-- Slide 20: Diversified Revenue Matrix -->
-            <div class="slide" id="slide20">
-                <div class="slide-content">
-                    <h1 class="slide-title">多元化收入矩陣</h1>
-                    
-                    <div class="comparison-chart">
-                        <div class="chart-bar" style="height: 150px;">
-                            <div class="chart-value">$120B</div>
-                            <div class="chart-label">內容經濟</div>
-                        </div>
-                        <div class="chart-bar" style="height: 134px;">
-                            <div class="chart-value">$134B</div>
-                            <div class="chart-label">硬件產品</div>
-                        </div>
-                        <div class="chart-bar" style="height: 100px;">
-                            <div class="chart-value">$38B</div>
-                            <div class="chart-label">體驗經濟</div>
-                        </div>
-                        <div class="chart-bar" style="height: 80px;">
-                            <div class="chart-value">$28B</div>
-                            <div class="chart-label">金融服務</div>
-                        </div>
-                    </div>
-                    
-                    <div class="stat-grid" style="margin-top: 2rem;">
-                        <div class="stat-item">
-                            <div class="stat-number">$320B</div>
-                            <div class="stat-label">總收入目標 (2030年)</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="page-counter">20/30</div>
-            </div>
-            
-            <!-- Slide 21: Profit Model Health -->
-            <div class="slide" id="slide21">
-                <div class="slide-content">
-                    <h1 class="slide-title">盈利模式健康度</h1>
-                    
-                    <div class="slide-body">
-                        <div class="card">
-                            <div class="card-title">高毛利業務</div>
-                            <div class="card-content">
-                                <p>軟件、內容、金融服務佔70%</p>
-                                <div class="stat-number">75%+</div>
-                                <p>綜合毛利率</p>
-                            </div>
-                        </div>
-                        
-                        <div class="card">
-                            <div class="card-title">穩定現金流</div>
-                            <div class="card-content">
-                                <p>教育預收費、訂閱服務</p>
-                                <div class="stat-number">35%+</div>
-                                <p>淨利潤率目標</p>
-                            </div>
-                        </div>
-                        
-                        <div class="card">
-                            <div class="card-title">增長引擎</div>
-                            <div class="card-content">
-                                <p>平台網絡效應、硬件規模經濟</p>
-                                <div class="stat-number">45%+</div>
-                                <p>年增長率 (2025-2030)</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="page-counter">21/30</div>
-            </div>
-            
-            <!-- Slide 22: Valuation Benchmarks -->
-            <div class="slide" id="slide22">
-                <div class="slide-content">
-                    <h1 class="slide-title">估值對標與模型</h1>
-                    
-                    <div class="comparison-table">
-                        <table>
-                            <tr>
-                                <th>模式</th>
-                                <th>代表公司</th>
-                                <th>估值倍數</th>
-                                <th>對應估值</th>
-                            </tr>
-                            <tr>
-                                <td>內容平台</td>
-                                <td>Netflix</td>
-                                <td>15倍PS</td>
-                                <td>$480B</td>
-                            </tr>
-                            <tr>
-                                <td>硬件生態</td>
-                                <td>蘋果</td>
-                                <td>25倍PE</td>
-                                <td>$800B</td>
-                            </tr>
-                            <tr>
-                                <td>教育科技</td>
-                                <td>好未來</td>
-                                <td>20倍PE</td>
-                                <td>$640B</td>
-                            </tr>
-                            <tr>
-                                <td>Web3平台</td>
-                                <td>Coinbase</td>
-                                <td>10倍PS</td>
-                                <td>$320B</td>
-                            </tr>
-                        </table>
-                    </div>
-                    
-                    <div class="card" style="margin-top: 2rem;">
-                        <div class="card-content">
-                            <div class="stat-number">$1500-2000B</div>
-                            <p>綜合估值範圍 (2030年)</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="page-counter">22/30</div>
-            </div>
-            
-            <!-- Slide 23: Competitive Advantages -->
-            <div class="slide" id="slide23">
-                <div class="slide-content">
-                    <h1 class="slide-title">競爭優勢與護城河</h1>
-                    
-                    <div class="slide-body">
-                        <div class="card">
-                            <div class="card-title">生態壁壘</div>
-                            <div class="card-content">
-                                <p>八維一體，競爭對手難以全面模仿</p>
-                            </div>
-                        </div>
-                        
-                        <div class="card">
-                            <div class="card-title">技術壁壘</div>
-                            <div class="card-content">
-                                <p>AI原生技術棧，多項核心專利</p>
-                            </div>
-                        </div>
-                        
-                        <div class="card">
-                            <div class="card-title">內容壁壘</div>
-                            <div class="card-content">
-                                <p>持續的優質內容生產能力</p>
-                            </div>
-                        </div>
-                        
-                        <div class="card">
-                            <div class="card-title">品牌壁壘</div>
-                            <div class="card-content">
-                                <p>行業標準制定者地位</p>
-                            </div>
-                        </div>
-                        
-                        <div class="card">
-                            <div class="card-title">網絡效應</div>
-                            <div class="card-content">
-                                <p>用戶和創作者雙邊市場</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="page-counter">23/30</div>
-            </div>
-            
-            <!-- Slide 24: Global Expansion Path -->
-            <div class="slide" id="slide24">
-                <div class="slide-content">
-                    <h1 class="slide-title">全球化擴張路徑</h1>
-                    
-                    <div class="horizontal-timeline">
-                        <div class="timeline-item">
-                            <div class="timeline-date">第1階段</div>
-                            <div class="card-title">大中華區</div>
-                            <div class="card-content">
-                                <ul>
-                                    <li>建立標杆市場</li>
-                                    <li>驗證商業模式</li>
-                                    <li>建立核心用戶群</li>
-                                    <li>2025-2027年</li>
-                                </ul>
-                            </div>
-                        </div>
-                        
-                        <div class="timeline-item">
-                            <div class="timeline-date">第2階段</div>
-                            <div class="card-title">亞太地區</div>
-                            <div class="card-content">
-                                <ul>
-                                    <li>複製成功模式</li>
-                                    <li>區域本土化</li>
-                                    <li>建立區域中心</li>
-                                    <li>2028-2029年</li>
-                                </ul>
-                            </div>
-                        </div>
-                        
-                        <div class="timeline-item">
-                            <div class="timeline-date">第3階段</div>
-                            <div class="card-title">歐美市場</div>
-                            <div class="card-content">
-                                <ul>
-                                    <li>深度本土化</li>
-                                    <li>收購互補企業</li>
-                                    <li>建立全球影響力</li>
-                                    <li>2030-2032年</li>
-                                </ul>
-                            </div>
-                        </div>
-                        
-                        <div class="timeline-item">
-                            <div class="timeline-date">第4階段</div>
-                            <div class="card-title">全球生態</div>
-                            <div class="card-content">
-                                <ul>
-                                    <li>統一全球生態</li>
-                                    <li>行業標準制定</li>
-                                    <li>全面市場覆蓋</li>
-                                    <li>2033年+</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="card" style="margin-top: 2rem;">
-                        <div class="card-content">
-                            <div class="stat-grid">
-                                <div class="stat-item">
-                                    <div class="stat-number">50+</div>
-                                    <div class="stat-label">目標國家</div>
-                                </div>
-                                <div class="stat-item">
-                                    <div class="stat-number">1B+</div>
-                                    <div class="stat-label">全球用戶</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="page-counter">24/30</div>
-            </div>
-            
-            <!-- Slide 25: World-Class Team -->
-            <div class="slide" id="slide25">
-                <div class="slide-content">
-                    <h1 class="slide-title">世界級團隊配置</h1>
-                    
-                    <div class="team-grid">
-                        <div class="team-card">
-                            <div class="team-avatar"><i class="fas fa-brain"></i></div>
-                            <div class="eco-title">AI團隊</div>
-                            <div class="stat-label">來自OpenAI、Google、Meta</div>
-                        </div>
-                        
-                        <div class="team-card">
-                            <div class="team-avatar"><i class="fas fa-film"></i></div>
-                            <div class="eco-title">內容團隊</div>
-                            <div class="stat-label">奧斯卡獲獎導演、製片人</div>
-                        </div>
-                        
-                        <div class="team-card">
-                            <div class="team-avatar"><i class="fas fa-graduation-cap"></i></div>
-                            <div class="eco-title">教育團隊</div>
-                            <div class="stat-label">名校教授、行業專家</div>
-                        </div>
-                        
-                        <div class="team-card">
-                            <div class="team-avatar"><i class="fas fa-chart-line"></i></div>
-                            <div class="eco-title">商業團隊</div>
-                            <div class="stat-label">前獨角獸企業高管</div>
-                        </div>
-                    </div>
-                    
-                    <div class="card" style="margin-top: 2rem;">
-                        <div class="card-content">
-                            <div class="stat-grid">
-                                <div class="stat-item">
-                                    <div class="stat-number">15+</div>
-                                    <div class="stat-label">國家成員</div>
-                                </div>
-                                <div class="stat-item">
-                                    <div class="stat-number">80%+</div>
-                                    <div class="stat-label">博士學位持有者</div>
-                                </div>
-                                <div class="stat-item">
-                                    <div class="stat-number">20+</div>
-                                    <div class="stat-label">行業經驗年數</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="page-counter">25/30</div>
-            </div>
-            
-            <!-- Slide 26: Strategic Partners -->
-            <div class="slide" id="slide26">
-                <div class="slide-content">
-                    <h1 class="slide-title">戰略合作夥伴矩陣</h1>
-                    
-                    <div class="eco-grid">
-                        <div class="eco-item">
-                            <div class="eco-icon"><i class="fas fa-microchip"></i></div>
-                            <div class="eco-title">技術合作</div>
-                            <div class="stat-label">NVIDIA、Meta、蘋果</div>
-                        </div>
-                        
-                        <div class="eco-item">
-                            <div class="eco-icon"><i class="fas fa-play-circle"></i></div>
-                            <div class="eco-title">內容合作</div>
-                            <div class="stat-label">迪士尼、Netflix、騰訊</div>
-                        </div>
-                        
-                        <div class="eco-item">
-                            <div class="eco-icon"><i class="fas fa-university"></i></div>
-                            <div class="eco-title">教育合作</div>
-                            <div class="stat-label">斯坦福、MIT、清華、USC</div>
-                        </div>
-                        
-                        <div class="eco-item">
-                            <div class="eco-icon"><i class="fas fa-store"></i></div>
-                            <div class="eco-title">渠道合作</div>
-                            <div class="stat-label">運營商、OEM廠商、零售巨頭</div>
-                        </div>
-                        
-                        <div class="eco-item">
-                            <div class="eco-icon"><i class="fas fa-hand-holding-usd"></i></div>
-                            <div class="eco-title">投資合作</div>
-                            <div class="stat-label">紅杉、a16z、騰訊投資、軟銀</div>
-                        </div>
-                        
-                        <div class="eco-item">
-                            <div class="eco-icon"><i class="fas fa-landmark"></i></div>
-                            <div class="eco-title">政府合作</div>
-                            <div class="stat-label">香港、新加坡、迪拜政府</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="page-counter">26/30</div>
-            </div>
-            
-            <!-- Slide 27: Milestones and Risk Control -->
-            <div class="slide" id="slide27">
-                <div class="slide-content">
-                    <h1 class="slide-title">執行里程碑與風險控制</h1>
-                    
-                    <div class="slide-body">
-                        <div class="card">
-                            <div class="card-title">分階段目標</div>
-                            <div class="card-content">
-                                <ul>
-                                    <li>明確的季度收入和用戶目標</li>
-                                    <li>關鍵技術里程碑</li>
-                                    <li>生態整合進度</li>
-                                </ul>
-                            </div>
-                        </div>
-                        
-                        <div class="card">
-                            <div class="card-title">里程碑考核</div>
-                            <div class="card-content">
-                                <ul>
-                                    <li>季度審查機制</li>
-                                    <li>及時策略調整</li>
-                                    <li>績效掛鉤激勵</li>
-                                </ul>
-                            </div>
-                        </div>
-                        
-                        <div class="card">
-                            <div class="card-title">風險分散</div>
-                            <div class="card-content">
-                                <ul>
-                                    <li>多元化業務降低單點風險</li>
-                                    <li>地域分散策略</li>
-                                    <li>技術多路徑開發</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="card" style="margin-top: 2rem;">
-                        <div class="card-content">
-                            <div class="stat-grid">
-                                <div class="stat-item">
-                                    <div class="stat-number">$500M</div>
-                                    <div class="stat-label">風險準備金</div>
-                                </div>
-                                <div class="stat-item">
-                                    <div class="stat-number">3</div>
-                                    <div class="stat-label">備用技術路線</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="page-counter">27/30</div>
-            </div>
-            
-            <!-- Slide 28: Current Funding Round -->
-            <div class="slide" id="slide28">
-                <div class="slide-content">
-                    <h1 class="slide-title">本輪融資方案</h1>
-                    
-                    <div class="slide-body">
-                        <div class="card">
-                            <div class="card-content">
-                                <div class="stat-number">$500M</div>
-                                <p>天使輪融資</p>
-                            </div>
-                        </div>
-                        
-                        <div class="card">
-                            <div class="card-content">
-                                <div class="stat-number">$5B</div>
-                                <p>投前估值</p>
-                            </div>
-                        </div>
-                        
-                        <div class="card">
-                            <div class="card-title">資金用途</div>
-                            <div class="card-content">
-                                <div class="comparison-chart">
-                                    <div class="chart-bar" style="height: 200px;">
-                                        <div class="chart-value">40%</div>
-                                        <div class="chart-label">技術研發</div>
-                                    </div>
-                                    <div class="chart-bar" style="height: 150px;">
-                                        <div class="chart-value">30%</div>
-                                        <div class="chart-label">教育基礎設施</div>
-                                    </div>
-                                    <div class="chart-bar" style="height: 100px;">
-                                        <div class="chart-value">20%</div>
-                                        <div class="chart-label">市場推廣</div>
-                                    </div>
-                                    <div class="chart-bar" style="height: 50px;">
-                                        <div class="chart-value">10%</div>
-                                        <div class="chart-label">團隊建設</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="page-counter">28/30</div>
-            </div>
-            
-            <!-- Slide 29: Investment Return and Exit -->
-            <div class="slide" id="slide29">
-                <div class="slide-content">
-                    <h1 class="slide-title">投資回報與退出</h1>
-                    
-                    <div class="slide-body">
-                        <div class="card">
-                            <div class="card-title">估值預測</div>
-                            <div class="card-content">
-                                <div class="stat-grid">
-                                    <div class="stat-item">
-                                        <div class="stat-number">100x</div>
-                                        <div class="stat-label">保守估計</div>
-                                    </div>
-                                    <div class="stat-item">
-                                        <div class="stat-number">500x</div>
-                                        <div class="stat-label">基本情況</div>
-                                    </div>
-                                    <div class="stat-item">
-                                        <div class="stat-number">2500x</div>
-                                        <div class="stat-label">樂觀估計</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="card">
-                            <div class="card-title">退出路徑</div>
-                            <div class="card-content">
-                                <ul>
-                                    <li>2028年IPO：香港+納斯達克雙重上市</li>
-                                    <li>戰略收購：科技巨頭或娛樂集團</li>
-                                    <li>二級市場流動性</li>
-                                </ul>
-                            </div>
-                        </div>
-                        
-                        <div class="card">
-                            <div class="card-title">風險調整IRR</div>
-                            <div class="card-content">
-                                <div class="stat-number">35-50%</div>
-                                <p>預期年化回報率</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="page-counter">29/30</div>
-            </div>
-            
-            <!-- Slide 30: Final Call to Action -->
-            <div class="slide" id="slide30">
-                <div class="slide-content full-center">
-                    <h1 class="slide-title">加入娛樂革命</h1>
-                    <p class="slide-subtitle">成為人類體驗未來的一部分</p>
-                    
-                    <div class="card" style="max-width: 600px; width: 100%; margin-top: 2rem;">
-                        <div class="card-content">
-                            <div class="stat-grid">
-                                <div class="stat-item">
-                                    <div class="eco-icon"><i class="fas fa-handshake"></i></div>
-                                    <div class="eco-title">合作夥伴</div>
-                                    <p>partner@aif.homes</p>
-                                </div>
-                                
-                                <div class="stat-item">
-                                    <div class="eco-icon"><i class="fas fa-chart-line"></i></div>
-                                    <div class="eco-title">投資者關係</div>
-                                    <p>ir@aif.homes</p>
-                                </div>
-                                
-                                <div class="stat-item">
-                                    <div class="eco-icon"><i class="fas fa-newspaper"></i></div>
-                                    <div class="eco-title">媒體聯繫</div>
-                                    <p>press@aif.homes</p>
-                                </div>
-                            </div>
-                            
-                            <div style="text-align: center; margin-top: 2rem; padding: 1rem; background: rgba(6, 214, 160, 0.1); border-radius: 15px;">
-                                <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">AIF娛樂集團</h3>
-                                <p>www.aif.homes</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="page-counter">30/30</div>
-            </div>
+        <div class="control-item active" data-step="0">
+            <span class="step-number">1</span>
+            <span data-en="Home" data-zh="首頁">Home</span>
         </div>
-        
-        <!-- Footer navigation -->
-        <div class="ppt-footer">
-            <button class="nav-btn" id="prevBtn">
-                <i class="fas fa-chevron-left"></i>
-            </button>
-            
-            <div class="slide-number">
-                <span id="currentSlide">1</span> / <span id="totalSlides">30</span>
-            </div>
-            
-            <button class="nav-btn" id="nextBtn">
-                <i class="fas fa-chevron-right"></i>
+        <div class="control-item" data-step="1">
+            <span class="step-number">2</span>
+            <span data-en="Listing" data-zh="上市服務">Listing</span>
+        </div>
+        <div class="control-item" data-step="2">
+            <span class="step-number">3</span>
+            <span data-en="Protocol" data-zh="協議流程">Protocol</span>
+        </div>
+        <div class="control-item" data-step="3">
+            <span class="step-number">4</span>
+            <span data-en="Phase 1" data-zh="階段1">Phase 1</span>
+        </div>
+        <div class="control-item" data-step="4">
+            <span class="step-number">5</span>
+            <span data-en="Phase 2" data-zh="階段2">Phase 2</span>
+        </div>
+        <div class="control-item" data-step="5">
+            <span class="step-number">6</span>
+            <span data-en="Phase 3 - TGE" data-zh="階段3 - TGE">Phase 3 - TGE</span>
+        </div>
+        <div class="control-item" data-step="6">
+            <span class="step-number">7</span>
+            <span data-en="Audit" data-zh="審核">Audit</span>
+        </div>
+        <div class="control-item" data-step="7">
+            <span class="step-number">8</span>
+            <span data-en="Fundraising" data-zh="募資">Fundraising</span>
+        </div>
+        <div class="control-item" data-step="8">
+            <span class="step-number">9</span>
+            <span data-en="Production" data-zh="製作">Production</span>
+        </div>
+        <div class="control-item" data-step="9">
+            <span class="step-number">10</span>
+            <span data-en="Revenue" data-zh="收益">Revenue</span>
+        </div>
+        <div style="margin-top: 1.2rem; padding-top: 1.2rem; border-top: 1px solid rgba(255,255,255,0.1);">
+            <button class="btn btn-primary" style="width: 100%; font-size: 0.85rem; justify-content: center;" onclick="autoPlay()">
+                <i class="fas fa-play"></i>
+                <span data-en="Auto Play" data-zh="自動播放">Auto Play</span>
             </button>
         </div>
     </div>
-    
+
+    <div class="demo-screen">
+        
+        <!-- Page 0: Home -->
+        <div class="demo-page active" id="page-0">
+            <nav class="navbar">
+                <div class="nav-content">
+                    <div>
+                        <div class="logo-font">HKAIFM</div>
+                        <div class="logo-sub">Hong Kong AI Film Market</div>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="container">
+                <div style="text-align: center; padding: 3rem 0;">
+                    <h1 class="page-title" style="font-size: 3.5rem;">
+                        <span data-en="Hong Kong AI Film Market" data-zh="香港AI電影市場">Hong Kong AI Film Market</span>
+                    </h1>
+                    <p class="page-subtitle" style="font-size: 1.3rem;">
+                        <span data-en="World's First AI Film Assetization Platform" data-zh="全球首個AI影視資產化平台">World's First AI Film Assetization Platform</span>
+                    </p>
+                    <div style="display: flex; gap: 1.5rem; justify-content: center; margin-top: 2.5rem; flex-wrap: wrap;">
+                        <button class="btn btn-primary highlight-pulse" onclick="nextStep()">
+                            <i class="fas fa-rocket"></i>
+                            <span data-en="Project Entry" data-zh="項目方入口">Project Entry</span>
+                        </button>
+                        <button class="btn btn-secondary">
+                            <i class="fas fa-users"></i>
+                            <span data-en="Investor Entry" data-zh="投資者入口">Investor Entry</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 3rem;">
+                    <div class="card">
+                        <div style="font-size: 2.5rem; margin-bottom: 1rem;">🎬</div>
+                        <h3 style="font-size: 1.3rem; font-weight: 700; margin-bottom: 0.8rem; color: var(--accent);">
+                            <span data-en="AI Film Assetization" data-zh="AI影視資產化">AI Film Assetization</span>
+                        </h3>
+                        <p style="color: rgba(255,255,255,0.8); line-height: 1.6; font-size: 0.9rem;">
+                            <span data-en="Transform AI films into tradable digital assets" data-zh="將AI影視作品轉化為可交易的數字資產">Transform AI films into tradable digital assets</span>
+                        </p>
+                    </div>
+                    <div class="card">
+                        <div style="font-size: 2.5rem; margin-bottom: 1rem;">🔒</div>
+                        <h3 style="font-size: 1.3rem; font-weight: 700; margin-bottom: 0.8rem; color: var(--accent);">
+                            <span data-en="Secure Custody" data-zh="安全托管機制">Secure Custody</span>
+                        </h3>
+                        <p style="color: rgba(255,255,255,0.8); line-height: 1.6; font-size: 0.9rem;">
+                            <span data-en="AIF locked in smart contract" data-zh="資金鎖定在AIF池子">AIF locked in smart contract</span>
+                        </p>
+                    </div>
+                    <div class="card">
+                        <div style="font-size: 2.5rem; margin-bottom: 1rem;">📊</div>
+                        <h3 style="font-size: 1.3rem; font-weight: 700; margin-bottom: 0.8rem; color: var(--accent);">
+                            <span data-en="NFT Rights" data-zh="NFT確權系統">NFT Rights</span>
+                        </h3>
+                        <p style="color: rgba(255,255,255,0.8); line-height: 1.6; font-size: 0.9rem;">
+                            <span data-en="NFT minted at each milestone" data-zh="按里程碑節點進行NFT確權">NFT minted at each milestone</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page 1: Listing -->
+        <div class="demo-page" id="page-1">
+            <nav class="navbar">
+                <div class="nav-content">
+                    <div>
+                        <div class="logo-font">HKAIFM</div>
+                        <div class="logo-sub">Hong Kong AI Film Market</div>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="container">
+                <h1 class="page-title">
+                    <span data-en="Assetization Path" data-zh="資產化路徑向導">Assetization Path</span>
+                </h1>
+                <p class="page-subtitle">
+                    <span data-en="Choose the best path for your project" data-zh="為您的AI影視項目選擇最適合的上市路徑">Choose the best path for your project</span>
+                </p>
+
+                <div class="card">
+                    <h3 style="font-size: 1.3rem; font-weight: 700; margin-bottom: 1.5rem; color: var(--accent);">
+                        <i class="fas fa-film" style="margin-right: 0.5rem;"></i>
+                        <span data-en="Select Asset Type" data-zh="選擇資產類型">Select Asset Type</span>
+                    </h3>
+
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.2rem;">
+                        <div class="card highlight-pulse" style="cursor: pointer; text-align: center; border-color: var(--accent); background: rgba(0, 255, 157, 0.15);">
+                            <div style="font-size: 2.5rem; margin-bottom: 0.8rem;">🎬</div>
+                            <h4 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 0.4rem;">
+                                <span data-en="Film Works ✓" data-zh="影視作品 ✓">Film Works ✓</span>
+                            </h4>
+                            <p style="color: rgba(255,255,255,0.7); font-size: 0.85rem;">
+                                <span data-en="AI Movies, TV Series" data-zh="AI電影、電視劇">AI Movies, TV Series</span>
+                            </p>
+                        </div>
+                        <div class="card" style="cursor: pointer; text-align: center; opacity: 0.5;">
+                            <div style="font-size: 2.5rem; margin-bottom: 0.8rem;">🛠️</div>
+                            <h4 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 0.4rem;">
+                                <span data-en="AI Tools" data-zh="AI工具">AI Tools</span>
+                            </h4>
+                            <p style="color: rgba(255,255,255,0.7); font-size: 0.85rem;">
+                                <span data-en="Production Tools" data-zh="製作工具">Production Tools</span>
+                            </p>
+                        </div>
+                        <div class="card" style="cursor: pointer; text-align: center; opacity: 0.5;">
+                            <div style="font-size: 2.5rem; margin-bottom: 0.8rem;">🤖</div>
+                            <h4 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 0.4rem;">
+                                <span data-en="AI Models" data-zh="AI模型">AI Models</span>
+                            </h4>
+                            <p style="color: rgba(255,255,255,0.7); font-size: 0.85rem;">
+                                <span data-en="Trained Models" data-zh="訓練模型">Trained Models</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="info-box" style="margin-top: 1.5rem;">
+                        <div class="info-title">
+                            <i class="fas fa-check-circle"></i>
+                            <span data-en="Selected: Film Works" data-zh="已選擇：影視作品">Selected: Film Works</span>
+                        </div>
+                        <div class="info-content">
+                            <span data-en="Professional film assetization service" data-zh="專業的影視資產化服務">Professional film assetization service</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 2rem;">
+                    <button class="btn btn-primary" onclick="nextStep()">
+                        <span data-en="Next Step" data-zh="下一步">Next Step</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page 2: Protocol Overview -->
+        <div class="demo-page" id="page-2">
+            <nav class="navbar">
+                <div class="nav-content">
+                    <div>
+                        <div class="logo-font">HKAIFM</div>
+                        <div class="logo-sub">Hong Kong AI Film Market</div>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="container">
+                <h1 class="page-title">
+                    <span data-en="HKAIFM Protocol Flow" data-zh="HKAIFM 協議完整流程">HKAIFM Protocol Flow</span>
+                </h1>
+                <p class="page-subtitle">
+                    <span data-en="Six-Phase Process" data-zh="項目發行六階段流程">Six-Phase Process</span>
+                </p>
+
+                <div class="phase-tracker">
+                    <div class="phase-item active">
+                        <div class="phase-number">01</div>
+                        <div class="phase-name" data-en="Basic Setup" data-zh="基礎設置">Basic Setup</div>
+                        <div class="phase-desc" data-en="Project Info" data-zh="項目信息">Project Info</div>
+                    </div>
+                    <div class="phase-item">
+                        <div class="phase-number">02</div>
+                        <div class="phase-name" data-en="IDO Config" data-zh="IDO配置">IDO Config</div>
+                        <div class="phase-desc" data-en="Token" data-zh="代幣">Token</div>
+                    </div>
+                    <div class="phase-item">
+                        <div class="phase-number">03</div>
+                        <div class="phase-name" data-en="TGE Setup" data-zh="TGE配置">TGE Setup</div>
+                        <div class="phase-desc" data-en="AIF Dist" data-zh="AIF分配">AIF Dist</div>
+                    </div>
+                    <div class="phase-item">
+                        <div class="phase-number">04</div>
+                        <div class="phase-name" data-en="Audit" data-zh="審核">Audit</div>
+                        <div class="phase-desc" data-en="Review" data-zh="審核">Review</div>
+                    </div>
+                    <div class="phase-item">
+                        <div class="phase-number">05</div>
+                        <div class="phase-name" data-en="Fundraising" data-zh="募資">Fundraising</div>
+                        <div class="phase-desc" data-en="Collect AIF" data-zh="募集AIF">Collect AIF</div>
+                    </div>
+                    <div class="phase-item">
+                        <div class="phase-number">06</div>
+                        <div class="phase-name" data-en="Production" data-zh="製作">Production</div>
+                        <div class="phase-desc" data-en="Revenue" data-zh="收益">Revenue</div>
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <div class="info-title">
+                        <i class="fas fa-lightbulb"></i>
+                        <span data-en="Innovative Process" data-zh="創新流程說明">Innovative Process</span>
+                    </div>
+                    <div class="info-content" style="line-height: 1.9;">
+                        <strong style="color: var(--accent);">
+                            <span data-en="1. Fundraise First" data-zh="1. 先完成募資">1. Fundraise First</span>
+                        </strong> - <span data-en="Collect AIF tokens through IDO" data-zh="通過IDO公募募集AIF生態代幣">Collect AIF tokens through IDO</span><br>
+                        
+                        <strong style="color: var(--accent);">
+                            <span data-en="2. Lock AIF Pool" data-zh="2. 鎖定AIF池子">2. Lock AIF Pool</span>
+                        </strong> - <span data-en="All AIF enters smart contract custody" data-zh="全部AIF資金進入智能合約托管">All AIF enters smart contract custody</span><br>
+                        
+                        <strong style="color: var(--accent);">
+                            <span data-en="3. Start Production" data-zh="3. 開始製作">3. Start Production</span>
+                        </strong> - <span data-en="Produce according to milestones" data-zh="根據里程碑節點進行製作">Produce according to milestones</span><br>
+                        
+                        <strong style="color: var(--accent);">
+                            <span data-en="4. Real-time AIF Deduction" data-zh="4. 實時扣除AIF">4. Real-time AIF Deduction</span>
+                        </strong> - <span data-en="Backend converts AIF↔USD for AI API" data-zh="後台將AIF與USD進行流動池交易支付AI API">Backend converts AIF↔USD for AI API</span><br>
+                        
+                        <strong style="color: var(--accent);">
+                            <span data-en="5. NFT Rights" data-zh="5. NFT資產確權">5. NFT Rights</span>
+                        </strong> - <span data-en="Auto-mint NFT after milestone" data-zh="每個里程碑完成後自動鑄造NFT">Auto-mint NFT after milestone</span><br>
+                        
+                        <strong style="color: var(--accent);">
+                            <span data-en="6. Revenue Distribution" data-zh="6. 項目上線與收益">6. Revenue Distribution</span>
+                        </strong> - <span data-en="Dividends, copyright, token appreciation" data-zh="分紅收益、版權交易收益、代幣升值收益">Dividends, copyright, token appreciation</span>
+                    </div>
+                </div>
+
+                <div style="background: rgba(255, 215, 0, 0.1); border: 2px solid var(--gold); border-radius: 12px; padding: 1.3rem; margin: 1.5rem 0;">
+                    <div style="display: flex; align-items: center; color: var(--gold); font-weight: 700; font-size: 1rem; margin-bottom: 0.8rem;">
+                        <i class="fas fa-coins" style="margin-right: 0.5rem;"></i>
+                        <span data-en="All Transactions in AIF" data-zh="全程僅使用AIF">All Transactions in AIF</span>
+                    </div>
+                    <div style="color: rgba(255, 255, 255, 0.85); line-height: 1.7; font-size: 0.9rem;">
+                        • <span data-en="Investors pay AIF to receive Film Tokens" data-zh="投資者支付AIF生態代幣獲得電影代幣">Investors pay AIF to receive Film Tokens</span><br>
+                        • <span data-en="Platform backend converts AIF ↔ USD" data-zh="平臺後台自動將AIF與USD進行流動池交易">Platform backend converts AIF ↔ USD</span><br>
+                        • <span data-en="Revenue distributed in AIF" data-zh="收益以AIF分配">Revenue distributed in AIF</span>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 2rem;">
+                    <button class="btn btn-primary" onclick="nextStep()">
+                        <i class="fas fa-rocket"></i>
+                        <span data-en="Start Phase 1" data-zh="開始階段1">Start Phase 1</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page 3: Phase 1 -->
+        <div class="demo-page" id="page-3">
+            <nav class="navbar">
+                <div class="nav-content">
+                    <div>
+                        <div class="logo-font">HKAIFM</div>
+                        <div class="logo-sub">Hong Kong AI Film Market</div>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="container">
+                <h1 class="page-title">
+                    <span data-en="Phase 1: Basic Setup" data-zh="階段1: 基礎設置">Phase 1: Basic Setup</span>
+                </h1>
+                <p class="page-subtitle">
+                    <span data-en="Configure project and milestones" data-zh="配置項目基本信息和製作里程碑">Configure project and milestones</span>
+                </p>
+
+                <div class="phase-tracker">
+                    <div class="phase-item completed">
+                        <div class="phase-number">01</div>
+                        <div class="phase-name" data-en="Setup" data-zh="設置">Setup</div>
+                    </div>
+                    <div class="phase-item">
+                        <div class="phase-number">02</div>
+                        <div class="phase-name" data-en="IDO" data-zh="IDO">IDO</div>
+                    </div>
+                    <div class="phase-item">
+                        <div class="phase-number">03</div>
+                        <div class="phase-name" data-en="TGE" data-zh="TGE">TGE</div>
+                    </div>
+                    <div class="phase-item">
+                        <div class="phase-number">04</div>
+                        <div class="phase-name" data-en="Audit" data-zh="審核">Audit</div>
+                    </div>
+                    <div class="phase-item">
+                        <div class="phase-number">05</div>
+                        <div class="phase-name" data-en="Fundraise" data-zh="募資">Fundraise</div>
+                    </div>
+                    <div class="phase-item">
+                        <div class="phase-number">06</div>
+                        <div class="phase-name" data-en="Produce" data-zh="製作">Produce</div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 1.2rem; color: var(--accent);">
+                        <i class="fas fa-film" style="margin-right: 0.5rem;"></i>
+                        <span data-en="Project Information" data-zh="項目基本信息">Project Information</span>
+                    </h3>
+
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.2rem;">
+                        <div>
+                            <div style="font-size: 0.85rem; color: var(--accent); margin-bottom: 0.4rem; font-weight: 600;">
+                                <span data-en="Project Name" data-zh="項目名稱">Project Name</span>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.05); padding: 0.7rem; border-radius: 8px; border: 1px solid rgba(0, 255, 157, 0.3);">
+                                <span data-en="'City of Tomorrow' AI Film" data-zh="《未來之城》AI科幻電影">'City of Tomorrow' AI Film</span>
+                            </div>
+                        </div>
+                        <div>
+                            <div style="font-size: 0.85rem; color: var(--accent); margin-bottom: 0.4rem; font-weight: 600;">
+                                <span data-en="Target Funding" data-zh="目標融資額">Target Funding</span>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.05); padding: 0.7rem; border-radius: 8px; border: 1px solid rgba(0, 255, 157, 0.3);">
+                                <strong>3,937,000 AIF</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 1.2rem; color: var(--accent);">
+                        <i class="fas fa-flag-checkered" style="margin-right: 0.5rem;"></i>
+                        <span data-en="Production Milestones (4)" data-zh="製作里程碑配置 (4個)">Production Milestones (4)</span>
+                    </h3>
+
+                    <div style="display: grid; gap: 0.8rem;">
+                        <div style="background: rgba(0, 255, 157, 0.05); border: 1px solid rgba(0, 255, 157, 0.2); border-radius: 10px; padding: 1.2rem;">
+                            <div style="font-weight: 600; color: white; margin-bottom: 0.6rem; font-size: 0.95rem;">
+                                <span data-en="Milestone 1: Script" data-zh="里程碑 1: 劇本完成">Milestone 1: Script</span>
+                            </div>
+                            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.8rem; font-size: 0.85rem;">
+                                <div><span style="color: rgba(255,255,255,0.6);">Budget:</span> 393,700 AIF</div>
+                                <div><span style="color: rgba(255,255,255,0.6);">Duration:</span> 30d</div>
+                                <div><span style="color: rgba(255,255,255,0.6);">Deliver:</span> Script</div>
+                            </div>
+                        </div>
+
+                        <div style="background: rgba(0, 255, 157, 0.05); border: 1px solid rgba(0, 255, 157, 0.2); border-radius: 10px; padding: 1.2rem;">
+                            <div style="font-weight: 600; color: white; margin-bottom: 0.6rem; font-size: 0.95rem;">
+                                <span data-en="Milestone 2: Design & Modeling" data-zh="里程碑 2: 設計與建模">Milestone 2: Design & Modeling</span>
+                            </div>
+                            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.8rem; font-size: 0.85rem;">
+                                <div><span style="color: rgba(255,255,255,0.6);">Budget:</span> 787,400 AIF</div>
+                                <div><span style="color: rgba(255,255,255,0.6);">Duration:</span> 60d</div>
+                                <div><span style="color: rgba(255,255,255,0.6);">Deliver:</span> Models</div>
+                            </div>
+                        </div>
+
+                        <div style="background: rgba(0, 255, 157, 0.05); border: 1px solid rgba(0, 255, 157, 0.2); border-radius: 10px; padding: 1.2rem;">
+                            <div style="font-weight: 600; color: white; margin-bottom: 0.6rem; font-size: 0.95rem;">
+                                <span data-en="Milestone 3: AI Video" data-zh="里程碑 3: AI視頻生成">Milestone 3: AI Video</span>
+                            </div>
+                            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.8rem; font-size: 0.85rem;">
+                                <div><span style="color: rgba(255,255,255,0.6);">Budget:</span> 1,968,500 AIF</div>
+                                <div><span style="color: rgba(255,255,255,0.6);">Duration:</span> 90d</div>
+                                <div><span style="color: rgba(255,255,255,0.6);">Deliver:</span> Video</div>
+                            </div>
+                        </div>
+
+                        <div style="background: rgba(0, 255, 157, 0.05); border: 1px solid rgba(0, 255, 157, 0.2); border-radius: 10px; padding: 1.2rem;">
+                            <div style="font-weight: 600; color: white; margin-bottom: 0.6rem; font-size: 0.95rem;">
+                                <span data-en="Milestone 4: Post-Production" data-zh="里程碑 4: 後期製作">Milestone 4: Post-Production</span>
+                            </div>
+                            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.8rem; font-size: 0.85rem;">
+                                <div><span style="color: rgba(255,255,255,0.6);">Budget:</span> 787,400 AIF</div>
+                                <div><span style="color: rgba(255,255,255,0.6);">Duration:</span> 30d</div>
+                                <div><span style="color: rgba(255,255,255,0.6);">Deliver:</span> Final Film</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 2rem;">
+                    <button class="btn btn-primary" onclick="nextStep()">
+                        <span data-en="Next - IDO Config" data-zh="下一步 - IDO配置">Next - IDO Config</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page 4: Phase 2 - IDO -->
+        <div class="demo-page" id="page-4">
+            <nav class="navbar">
+                <div class="nav-content">
+                    <div>
+                        <div class="logo-font">HKAIFM</div>
+                        <div class="logo-sub">Hong Kong AI Film Market</div>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="container">
+                <h1 class="page-title">
+                    <span data-en="Phase 2: IDO Configuration" data-zh="階段2: IDO配置">Phase 2: IDO Configuration</span>
+                </h1>
+                <p class="page-subtitle">
+                    <span data-en="Design token economics" data-zh="設計代幣經濟模型">Design token economics</span>
+                </p>
+
+                <div class="phase-tracker">
+                    <div class="phase-item completed"><div class="phase-number">01</div><div class="phase-name">Setup</div></div>
+                    <div class="phase-item active"><div class="phase-number">02</div><div class="phase-name">IDO</div></div>
+                    <div class="phase-item"><div class="phase-number">03</div><div class="phase-name">TGE</div></div>
+                    <div class="phase-item"><div class="phase-number">04</div><div class="phase-name">Audit</div></div>
+                    <div class="phase-item"><div class="phase-number">05</div><div class="phase-name">Fundraise</div></div>
+                    <div class="phase-item"><div class="phase-number">06</div><div class="phase-name">Produce</div></div>
+                </div>
+
+                <div class="card">
+                    <h3 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 1.2rem; color: var(--accent);">
+                        <i class="fas fa-coins" style="margin-right: 0.5rem;"></i>
+                        <span data-en="Token Economics" data-zh="代幣經濟設計">Token Economics</span>
+                    </h3>
+
+                    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem; margin-bottom: 1.5rem;">
+                        <div class="data-card">
+                            <div class="data-label">Symbol</div>
+                            <div class="data-value" style="font-size: 1.4rem;">FUTURE</div>
+                        </div>
+                        <div class="data-card">
+                            <div class="data-label">Supply</div>
+                            <div class="data-value">50K</div>
+                        </div>
+                        <div class="data-card">
+                            <div class="data-label">Price</div>
+                            <div class="data-value">78.74<span class="data-unit">AIF</span></div>
+                        </div>
+                        <div class="data-card">
+                            <div class="data-label">Target</div>
+                            <div class="data-value">3.94M<span class="data-unit">AIF</span></div>
+                        </div>
+                    </div>
+
+                    <h4 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 1rem; color: white;">
+                        <span data-en="Token Distribution" data-zh="代幣分配方案">Token Distribution</span>
+                    </h4>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.2rem;">
+                        <div style="background: rgba(52, 152, 219, 0.1); border: 1px solid var(--primary); border-radius: 10px; padding: 1.2rem;">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <span style="color: rgba(255,255,255,0.9); font-size: 0.9rem;">
+                                    <span data-en="Public Sale" data-zh="公募">Public Sale</span>
+                                </span>
+                                <span style="font-size: 1.4rem; font-weight: 700; color: var(--accent);">60%</span>
+                            </div>
+                            <div style="font-size: 0.8rem; color: rgba(255,255,255,0.6); margin-top: 0.4rem;">
+                                30,000 FUTURE
+                            </div>
+                        </div>
+
+                        <div style="background: rgba(142, 68, 173, 0.1); border: 1px solid var(--secondary); border-radius: 10px; padding: 1.2rem;">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <span style="color: rgba(255,255,255,0.9); font-size: 0.9rem;">
+                                    <span data-en="Team" data-zh="項目方">Team</span>
+                                </span>
+                                <span style="font-size: 1.4rem; font-weight: 700; color: var(--secondary);">25%</span>
+                            </div>
+                            <div style="font-size: 0.8rem; color: rgba(255,255,255,0.6); margin-top: 0.4rem;">
+                                <span data-en="12-month lock" data-zh="鎖倉12個月">12-month lock</span>
+                            </div>
+                        </div>
+
+                        <div style="background: rgba(0, 184, 148, 0.1); border: 1px solid var(--success); border-radius: 10px; padding: 1.2rem;">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <span style="color: rgba(255,255,255,0.9); font-size: 0.9rem;">
+                                    <span data-en="Platform" data-zh="平台儲備">Platform</span>
+                                </span>
+                                <span style="font-size: 1.4rem; font-weight: 700; color: var(--success);">10%</span>
+                            </div>
+                            <div style="font-size: 0.8rem; color: rgba(255,255,255,0.6); margin-top: 0.4rem;">
+                                <span data-en="Ecosystem" data-zh="生態發展">Ecosystem</span>
+                            </div>
+                        </div>
+
+                        <div style="background: rgba(255, 215, 0, 0.1); border: 1px solid var(--gold); border-radius: 10px; padding: 1.2rem;">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <span style="color: rgba(255,255,255,0.9); font-size: 0.9rem;">
+                                    <span data-en="Liquidity" data-zh="流動性池">Liquidity</span>
+                                </span>
+                                <span style="font-size: 1.4rem; font-weight: 700; color: var(--gold);">5%</span>
+                            </div>
+                            <div style="font-size: 0.8rem; color: rgba(255,255,255,0.6); margin-top: 0.4rem;">
+                                DEX
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 2rem;">
+                    <button class="btn btn-primary" onclick="nextStep()">
+                        <span data-en="Next - TGE Setup" data-zh="下一步 - TGE配置">Next - TGE Setup</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page 5: Phase 3 - TGE (CRITICAL - CORRECTED) -->
+        <div class="demo-page" id="page-5">
+            <nav class="navbar">
+                <div class="nav-content">
+                    <div>
+                        <div class="logo-font">HKAIFM</div>
+                        <div class="logo-sub">Hong Kong AI Film Market</div>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="container">
+                <h1 class="page-title">
+                    <span data-en="Phase 3: TGE Configuration" data-zh="階段3: TGE配置">Phase 3: TGE Configuration</span>
+                </h1>
+                <p class="page-subtitle">
+                    <span data-en="Configure AIF Distribution & Liquidity Pool" data-zh="配置AIF分配與流動池設置">Configure AIF Distribution & Liquidity Pool</span>
+                </p>
+
+                <div class="phase-tracker">
+                    <div class="phase-item completed"><div class="phase-number">01</div><div class="phase-name">Setup</div></div>
+                    <div class="phase-item completed"><div class="phase-number">02</div><div class="phase-name">IDO</div></div>
+                    <div class="phase-item active"><div class="phase-number">03</div><div class="phase-name">TGE</div></div>
+                    <div class="phase-item"><div class="phase-number">04</div><div class="phase-name">Audit</div></div>
+                    <div class="phase-item"><div class="phase-number">05</div><div class="phase-name">Fundraise</div></div>
+                    <div class="phase-item"><div class="phase-number">06</div><div class="phase-name">Produce</div></div>
+                </div>
+
+                <div class="card">
+                    <h3 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 1.2rem; color: var(--accent);">
+                        <i class="fas fa-chart-pie" style="margin-right: 0.5rem;"></i>
+                        <span data-en="Fundraised AIF Distribution" data-zh="募集AIF分配方案">Fundraised AIF Distribution</span>
+                    </h3>
+
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.2rem; margin-bottom: 1.5rem;">
+                        <div style="background: rgba(52, 152, 219, 0.1); border: 2px solid var(--primary); border-radius: 12px; padding: 1.5rem;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem;">
+                                <span style="font-size: 1rem; color: rgba(255,255,255,0.9);">
+                                    <span data-en="Production Budget" data-zh="製作預算">Production Budget</span>
+                                </span>
+                                <span style="font-size: 1.8rem; font-weight: 700; color: var(--primary);">80%</span>
+                            </div>
+                            <div style="font-size: 1.2rem; font-weight: 700; color: white; margin-bottom: 0.4rem;">
+                                3,149,600 AIF
+                            </div>
+                            <div style="font-size: 0.85rem; color: rgba(255,255,255,0.7);">
+                                <span data-en="Locked in smart contract" data-zh="鎖定在智能合約托管">Locked in smart contract</span>
+                            </div>
+                        </div>
+
+                        <div style="background: rgba(255, 215, 0, 0.1); border: 2px solid var(--gold); border-radius: 12px; padding: 1.5rem;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem;">
+                                <span style="font-size: 1rem; color: rgba(255,255,255,0.9);">
+                                    <span data-en="Liquidity Pool" data-zh="流動性池">Liquidity Pool</span>
+                                </span>
+                                <span style="font-size: 1.8rem; font-weight: 700; color: var(--gold);">20%</span>
+                            </div>
+                            <div style="font-size: 1.2rem; font-weight: 700; color: white; margin-bottom: 0.4rem;">
+                                787,400 AIF
+                            </div>
+                            <div style="font-size: 0.85rem; color: rgba(255,255,255,0.7);">
+                                <span data-en="FUTURE/AIF trading pair" data-zh="用於FUTURE/AIF交易對">FUTURE/AIF trading pair</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="info-box">
+                        <div class="info-title">
+                            <i class="fas fa-water"></i>
+                            <span data-en="Auto Liquidity Pool Setup" data-zh="流動性池自動配置">Auto Liquidity Pool Setup</span>
+                        </div>
+                        <div class="info-content">
+                            <span data-en="System will automatically establish FUTURE/AIF trading pair:" data-zh="系統將自動建立FUTURE/AIF交易對：">System will automatically establish FUTURE/AIF trading pair:</span><br><br>
+                            • <strong>787,400 AIF</strong> + <strong>10,000 FUTURE</strong> → <span data-en="Initial pool" data-zh="初始流動性池">Initial pool</span><br>
+                            • <span data-en="Initial price:" data-zh="初始價格:">Initial price:</span> 1 FUTURE = 78.74 AIF<br>
+                            • <span data-en="Enables trading after fundraising" data-zh="募資完成後即可交易">Enables trading after fundraising</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 1.2rem; color: var(--accent);">
+                        <i class="fas fa-file-contract" style="margin-right: 0.5rem;"></i>
+                        <span data-en="Smart Contract Generated" data-zh="智能合約生成">Smart Contract Generated</span>
+                    </h3>
+
+                    <div style="background: rgba(0,0,0,0.5); border: 1px solid rgba(0,255,157,0.3); border-radius: 10px; padding: 1.2rem; font-family: 'Courier New', monospace; font-size: 0.85rem;">
+                        <div style="margin: 0.4rem 0;">
+                            <span style="color: var(--accent);">contract_type:</span>
+                            <span style="color: var(--gold);"> HKAIFM_Custody</span>
+                        </div>
+                        <div style="margin: 0.4rem 0;">
+                            <span style="color: var(--accent);">total_fundraising:</span>
+                            <span style="color: var(--gold);"> 3,937,000 AIF</span>
+                        </div>
+                        <div style="margin: 0.4rem 0;">
+                            <span style="color: var(--accent);">production_budget:</span>
+                            <span style="color: var(--gold);"> 3,149,600 AIF</span>
+                        </div>
+                        <div style="margin: 0.4rem 0;">
+                            <span style="color: var(--accent);">liquidity_pool:</span>
+                            <span style="color: var(--gold);"> 787,400 AIF</span>
+                        </div>
+                        <div style="margin: 0.4rem 0;">
+                            <span style="color: var(--accent);">status:</span>
+                            <span style="color: var(--gold);"> PENDING_AUDIT</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-box" style="background: rgba(255, 215, 0, 0.1); border-color: var(--gold);">
+                    <div class="info-title" style="color: var(--gold);">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <span data-en="Next: Platform Audit Required" data-zh="下一步：需要平台審核">Next: Platform Audit Required</span>
+                    </div>
+                    <div class="info-content">
+                        <span data-en="Smart contract must pass audit before going live:" data-zh="智能合約需經過審核才能上線：">Smart contract must pass audit before going live:</span><br><br>
+                        1. <span data-en="Code audit" data-zh="代碼審核">Code audit</span><br>
+                        2. <span data-en="Info verification" data-zh="信息驗證">Info verification</span><br>
+                        3. <span data-en="Risk assessment" data-zh="風險評估">Risk assessment</span><br><br>
+                        <strong style="color: var(--gold);">
+                            <span data-en="Only after approval can fundraising begin!" data-zh="審核通過後才能開始募資！">Only after approval can fundraising begin!</span>
+                        </strong>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 2rem;">
+                    <button class="btn btn-primary" onclick="nextStep()">
+                        <span data-en="Submit for Audit" data-zh="提交審核">Submit for Audit</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Remaining pages (6-9) abbreviated for space -->
+        <div class="demo-page" id="page-6">
+            <nav class="navbar">
+                <div class="nav-content">
+                    <div><div class="logo-font">HKAIFM</div><div class="logo-sub">Hong Kong AI Film Market</div></div>
+                </div>
+            </nav>
+            <div class="container">
+                <h1 class="page-title">
+                    <span data-en="Phase 4: Audit & Launch" data-zh="階段4: 審核與上線">Phase 4: Audit & Launch</span>
+                </h1>
+                <p class="page-subtitle">
+                    <span data-en="Contract approved, ready to launch" data-zh="合約審核通過，準備上線">Contract approved, ready to launch</span>
+                </p>
+                
+                <div class="success-box">
+                    <div class="success-title">
+                        <i class="fas fa-check-circle"></i>
+                        <span data-en="Audit Passed!" data-zh="審核通過！">Audit Passed!</span>
+                    </div>
+                    <div style="color: rgba(255,255,255,0.85); line-height: 1.8;">
+                        <span data-en="Project approved and ready for fundraising" data-zh="項目已批准，準備開始募資">Project approved and ready for fundraising</span><br>
+                        <strong><span data-en="Contract:" data-zh="合約:">Contract:</span></strong> 0x742d35...f0bEb8
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 2rem;">
+                    <button class="btn btn-primary" onclick="nextStep()">
+                        <i class="fas fa-rocket"></i>
+                        <span data-en="Launch Fundraising" data-zh="開始募資">Launch Fundraising</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="demo-page" id="page-7">
+            <nav class="navbar">
+                <div class="nav-content">
+                    <div><div class="logo-font">HKAIFM</div><div class="logo-sub">Hong Kong AI Film Market</div></div>
+                </div>
+            </nav>
+            <div class="container">
+                <h1 class="page-title">
+                    <span data-en="Phase 5: AIF Fundraising" data-zh="階段5: AIF募資">Phase 5: AIF Fundraising</span>
+                </h1>
+                <p class="page-subtitle">
+                    <span data-en="Collecting AIF tokens from investors" data-zh="向投資者募集AIF代幣">Collecting AIF tokens from investors</span>
+                </p>
+
+                <div class="card">
+                    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem; margin-bottom: 1.5rem;">
+                        <div class="data-card"><div class="data-label">Raised AIF</div><div class="data-value">3.67M</div></div>
+                        <div class="data-card"><div class="data-label">Progress</div><div class="data-value">93%</div></div>
+                        <div class="data-card"><div class="data-label">Investors</div><div class="data-value">156</div></div>
+                        <div class="data-card"><div class="data-label">Time Left</div><div class="data-value">3d</div></div>
+                    </div>
+
+                    <div style="background: rgba(255,255,255,0.05); border-radius: 10px; padding: 1.5rem;">
+                        <div style="height: 25px; background: rgba(255,255,255,0.1); border-radius: 12px; overflow: hidden;">
+                            <div style="height: 100%; width: 93%; background: linear-gradient(90deg, var(--primary), var(--accent)); border-radius: 12px;"></div>
+                        </div>
+                    </div>
+
+                    <div class="success-box" style="margin-top: 1.5rem;">
+                        <div class="success-title"><i class="fas fa-check-circle"></i><span data-en="Fundraising Successful!" data-zh="募資成功！">Fundraising Successful!</span></div>
+                        <div style="color: rgba(255,255,255,0.85);">
+                            <span data-en="Reached Soft Cap. AIF will be locked in smart contract." data-zh="已達到Soft Cap。AIF將鎖定在智能合約中。">Reached Soft Cap. AIF will be locked in smart contract.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 2rem;">
+                    <button class="btn btn-primary" onclick="nextStep()">
+                        <span data-en="Start Production" data-zh="開始製作">Start Production</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="demo-page" id="page-8">
+            <nav class="navbar">
+                <div class="nav-content">
+                    <div><div class="logo-font">HKAIFM</div><div class="logo-sub">Hong Kong AI Film Market</div></div>
+                </div>
+            </nav>
+            <div class="container">
+                <h1 class="page-title">
+                    <span data-en="Phase 6: Production & AIF Deduction" data-zh="階段6: 製作與AIF扣除">Phase 6: Production & AIF Deduction</span>
+                </h1>
+                <p class="page-subtitle">
+                    <span data-en="AIF auto-deducted, backend converts to USD" data-zh="AIF自動扣除，後台轉換USD支付">AIF auto-deducted, backend converts to USD</span>
+                </p>
+
+                <div class="card">
+                    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem; margin-bottom: 1.5rem;">
+                        <div class="data-card"><div class="data-label">Initial</div><div class="data-value">3.15M<span class="data-unit">AIF</span></div></div>
+                        <div class="data-card"><div class="data-label">Used</div><div class="data-value" style="color: var(--danger);">1.05M<span class="data-unit">AIF</span></div></div>
+                        <div class="data-card"><div class="data-label">Remaining</div><div class="data-value" style="color: var(--success);">2.10M<span class="data-unit">AIF</span></div></div>
+                        <div class="data-card"><div class="data-label">Progress</div><div class="data-value">33%</div></div>
+                    </div>
+
+                    <div class="info-box">
+                        <div class="info-title">
+                            <i class="fas fa-sync-alt"></i>
+                            <span data-en="Backend AIF ↔ USD Conversion" data-zh="後台AIF↔USD自動轉換">Backend AIF ↔ USD Conversion</span>
+                        </div>
+                        <div class="info-content">
+                            <span data-en="Platform auto-converts AIF to USD for AI API:" data-zh="平臺自動將AIF轉換為USD支付AI API：">Platform auto-converts AIF to USD for AI API:</span><br><br>
+                            • <span data-en="Deducted: 1,050,000 AIF" data-zh="扣除：1,050,000 AIF">Deducted: 1,050,000 AIF</span><br>
+                            • <span data-en="Converted: ~$133,000 USD" data-zh="轉換：~$133,000 USD">Converted: ~$133,000 USD</span><br>
+                            • <span data-en="Rate: 1 AIF ≈ $0.127" data-zh="匯率：1 AIF ≈ $0.127">Rate: 1 AIF ≈ $0.127</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 2rem;">
+                    <button class="btn btn-primary" onclick="nextStep()">
+                        <span data-en="View Revenue" data-zh="查看收益">View Revenue</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="demo-page" id="page-9">
+            <nav class="navbar">
+                <div class="nav-content">
+                    <div><div class="logo-font">HKAIFM</div><div class="logo-sub">Hong Kong AI Film Market</div></div>
+                </div>
+            </nav>
+            <div class="container">
+                <h1 class="page-title">
+                    <span data-en="Project Complete: Revenue" data-zh="項目完成：收益分配">Project Complete: Revenue</span>
+                </h1>
+                <p class="page-subtitle">
+                    <span data-en="Film launched - Multiple revenue streams" data-zh="電影成功上線 - 多重收益來源">Film launched - Multiple revenue streams</span>
+                </p>
+                
+                <div class="success-box">
+                    <div class="success-title">
+                        <i class="fas fa-trophy"></i>
+                        <span data-en="🎉 Project Successfully Completed!" data-zh="🎉 項目成功完成！">🎉 Project Successfully Completed!</span>
+                    </div>
+                    <div style="color: rgba(255,255,255,0.85); line-height: 1.8;">
+                        <span data-en="'City of Tomorrow' officially launched on HKAIFM" data-zh="《未來之城》正式上線HKAIFM市場">'City of Tomorrow' officially launched on HKAIFM</span>
+                    </div>
+                </div>
+
+                <div class="revenue-card">
+                    <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1.2rem; color: var(--success); text-align: center;">
+                        <i class="fas fa-money-bill-wave" style="margin-right: 0.5rem;"></i>
+                        <span data-en="Three Revenue Streams" data-zh="三大收益來源">Three Revenue Streams</span>
+                    </h3>
+
+                    <div class="revenue-item">
+                        <div class="revenue-label">
+                            <i class="fas fa-chart-line" style="color: var(--success);"></i>
+                            <div>
+                                <div style="font-weight: 600; font-size: 0.95rem;">
+                                    <span data-en="1. Dividend Revenue" data-zh="1. 分紅收益">1. Dividend Revenue</span>
+                                </div>
+                                <div style="font-size: 0.8rem; color: rgba(255,255,255,0.6);">
+                                    <span data-en="Box office & licensing" data-zh="票房和版權授權收入">Box office & licensing</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="revenue-value">+45,000 AIF</div>
+                    </div>
+
+                    <div class="revenue-item">
+                        <div class="revenue-label">
+                            <i class="fas fa-handshake" style="color: var(--primary);"></i>
+                            <div>
+                                <div style="font-weight: 600; font-size: 0.95rem;">
+                                    <span data-en="2. Copyright Trading" data-zh="2. 版權交易收益">2. Copyright Trading</span>
+                                </div>
+                                <div style="font-size: 0.8rem; color: rgba(255,255,255,0.6);">
+                                    <span data-en="Secondary market fees" data-zh="二級市場交易版稅">Secondary market fees</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="revenue-value">+28,500 AIF</div>
+                    </div>
+
+                    <div class="revenue-item">
+                        <div class="revenue-label">
+                            <i class="fas fa-rocket" style="color: var(--gold);"></i>
+                            <div>
+                                <div style="font-weight: 600; font-size: 0.95rem;">
+                                    <span data-en="3. Token Appreciation" data-zh="3. 代幣升值收益">3. Token Appreciation</span>
+                                </div>
+                                <div style="font-size: 0.8rem; color: rgba(255,255,255,0.6);">
+                                    <span data-en="FUTURE price increase" data-zh="FUTURE代幣價格升值">FUTURE price increase</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="revenue-value">
+                            +98,425 AIF
+                            <span class="price-change price-up">+125%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin: 2rem 0;">
+                    <div class="card" style="text-align: center;">
+                        <div style="font-size: 2rem; margin-bottom: 0.8rem;">💰</div>
+                        <h4 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--accent);">
+                            <span data-en="Total Revenue" data-zh="總收益">Total Revenue</span>
+                        </h4>
+                        <div style="font-size: 1.7rem; font-weight: 700; color: var(--success); margin: 0.8rem 0;">
+                            171,925 AIF
+                        </div>
+                    </div>
+
+                    <div class="card" style="text-align: center;">
+                        <div style="font-size: 2rem; margin-bottom: 0.8rem;">📈</div>
+                        <h4 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--primary);">
+                            <span data-en="FUTURE Price" data-zh="FUTURE價格">FUTURE Price</span>
+                        </h4>
+                        <div style="font-size: 1.7rem; font-weight: 700; color: white; margin: 0.8rem 0;">
+                            177 AIF
+                        </div>
+                        <div style="font-size: 0.85rem; color: rgba(255,255,255,0.6);">
+                            <span class="price-change price-up">+125%</span>
+                        </div>
+                    </div>
+
+                    <div class="card" style="text-align: center;">
+                        <div style="font-size: 2rem; margin-bottom: 0.8rem;">🎯</div>
+                        <h4 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--gold);">
+                            <span data-en="ROI" data-zh="投資回報率">ROI</span>
+                        </h4>
+                        <div style="font-size: 1.7rem; font-weight: 700; color: var(--gold); margin: 0.8rem 0;">
+                            218%
+                        </div>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 2rem; padding: 2rem; background: rgba(0, 255, 157, 0.1); border-radius: 12px; border: 2px solid var(--accent);">
+                    <h3 style="font-size: 2rem; font-weight: 800; color: var(--accent); margin-bottom: 1rem;">
+                        <span data-en="Thank You for Choosing HKAIFM!" data-zh="感謝選擇 HKAIFM！">Thank You for Choosing HKAIFM!</span>
+                    </h3>
+                    <div style="display: flex; gap: 1.2rem; justify-content: center; flex-wrap: wrap; margin-top: 1.5rem;">
+                        <button class="btn btn-primary" onclick="showStep(0)">
+                            <i class="fas fa-redo"></i>
+                            <span data-en="Restart Demo" data-zh="重新演示">Restart Demo</span>
+                        </button>
+                        <button class="btn btn-secondary">
+                            <i class="fas fa-store"></i>
+                            <span data-en="Film Market" data-zh="電影市場">Film Market</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const slides = document.querySelectorAll('.slide');
-            const slideIndicator = document.getElementById('slideIndicator');
-            const prevBtn = document.getElementById('prevBtn');
-            const nextBtn = document.getElementById('nextBtn');
-            const currentSlideEl = document.getElementById('currentSlide');
-            const totalSlidesEl = document.getElementById('totalSlides');
+        let currentLang = 'en';
+        let currentStep = 0;
+        const totalSteps = 10;
+        let autoPlayTimer = null;
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'en' ? 'zh' : 'en';
+            document.getElementById('lang-text').textContent = currentLang === 'en' ? 'English' : '繁體中文';
+            document.documentElement.lang = currentLang === 'en' ? 'en' : 'zh-TW';
             
-            let currentSlide = 0;
-            const totalSlides = slides.length;
+            document.querySelectorAll('[data-en][data-zh]').forEach(el => {
+                const text = currentLang === 'en' ? el.getAttribute('data-en') : el.getAttribute('data-zh');
+                if (text) el.textContent = text;
+            });
+        }
+
+        function showStep(index) {
+            if (index < 0 || index >= totalSteps) return;
             
-            // Initialize indicators and total slides
-            totalSlidesEl.textContent = totalSlides;
+            currentStep = index;
             
-            // Create indicator dots
-            for (let i = 0; i < totalSlides; i++) {
-                const dot = document.createElement('div');
-                dot.classList.add('indicator-dot');
-                if (i === 0) dot.classList.add('active');
-                dot.addEventListener('click', () => goToSlide(i));
-                slideIndicator.appendChild(dot);
+            document.querySelectorAll('.demo-page').forEach(p => p.classList.remove('active'));
+            document.getElementById(`page-${index}`).classList.add('active');
+            
+            document.querySelectorAll('.control-item').forEach((item, i) => {
+                item.classList.remove('active', 'completed');
+                if (i === index) item.classList.add('active');
+                else if (i < index) item.classList.add('completed');
+            });
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function nextStep() {
+            if (currentStep < totalSteps - 1) showStep(currentStep + 1);
+        }
+
+        function prevStep() {
+            if (currentStep > 0) showStep(currentStep - 1);
+        }
+
+        function autoPlay() {
+            if (autoPlayTimer) {
+                clearInterval(autoPlayTimer);
+                autoPlayTimer = null;
+                return;
             }
             
-            // Update slide states
-            function updateSlide() {
-                slides.forEach((slide, index) => {
-                    if (index === currentSlide) {
-                        slide.classList.add('active');
-                    } else {
-                        slide.classList.remove('active');
-                    }
-                });
-                
-                // Update indicator dots
-                document.querySelectorAll('.indicator-dot').forEach((dot, index) => {
-                    if (index === currentSlide) {
-                        dot.classList.add('active');
-                    } else {
-                        dot.classList.remove('active');
-                    }
-                });
-                
-                // Update page number
-                currentSlideEl.textContent = currentSlide + 1;
+            showStep(0);
+            autoPlayTimer = setInterval(() => {
+                if (currentStep < totalSteps - 1) {
+                    nextStep();
+                } else {
+                    clearInterval(autoPlayTimer);
+                    autoPlayTimer = null;
+                }
+            }, 5000);
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+                e.preventDefault();
+                nextStep();
             }
-            
-            // Go to specific slide
-            function goToSlide(index) {
-                if (index >= 0 && index < totalSlides) {
-                    currentSlide = index;
-                    updateSlide();
-                }
+            else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+                e.preventDefault();
+                prevStep();
             }
-            
-            // Previous slide
-            prevBtn.addEventListener('click', () => {
-                if (currentSlide > 0) {
-                    currentSlide--;
-                    updateSlide();
-                }
+            else if (e.key === ' ') {
+                e.preventDefault();
+                autoPlay();
+            }
+            else if (e.key === 'Home') {
+                e.preventDefault();
+                showStep(0);
+            }
+            else if (e.key === 'End') {
+                e.preventDefault();
+                showStep(totalSteps - 1);
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.control-item').forEach((item, index) => {
+                item.addEventListener('click', () => showStep(index));
             });
-            
-            // Next slide
-            nextBtn.addEventListener('click', () => {
-                if (currentSlide < totalSlides - 1) {
-                    currentSlide++;
-                    updateSlide();
-                }
-            });
-            
-            // Keyboard navigation
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'ArrowLeft') {
-                    prevBtn.click();
-                } else if (e.key === 'ArrowRight' || e.key === ' ') {
-                    nextBtn.click();
-                } else if (e.key >= '1' && e.key <= '9') {
-                    // Number key navigation
-                    const num = parseInt(e.key);
-                    if (num <= totalSlides) {
-                        goToSlide(num - 1);
-                    }
-                } else if (e.key === 'Home') {
-                    goToSlide(0);
-                } else if (e.key === 'End') {
-                    goToSlide(totalSlides - 1);
-                }
-            });
-            
-            // Initial update
-            updateSlide();
         });
     </script>
 </body>
